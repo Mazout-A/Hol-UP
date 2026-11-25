@@ -8,6 +8,7 @@ const button = document.getElementById('draw')
 const en = 'en';
 const rest_button = document.getElementById('reset');
 const max_rounds = 6;
+const video_frame = document.getElementById('video')
 ////////////////////////////////////////////
 
 
@@ -21,7 +22,6 @@ button.addEventListener('click', () => {
   const i = Math.floor(Math.random() * deck.length);
   const [card] = deck.splice(i, 1);
   const category = data.categories[card.category]
-
 
   document.getElementById('category-icon').innerHTML = `<i data-lucide=${category.icon}></i>`
   createIcons({ icons })
@@ -41,6 +41,14 @@ button.addEventListener('click', () => {
   document.getElementById('title').textContent = card.title[en]; //signaler le parametre que je veux, EN card.title.en
   document.getElementById('text').textContent = card.text[en];   //signaler le parametre que je veux, EN card.text.en
   document.getElementById('source').href = card.source.url;
+
+  if (card.video && card.video.url.includes('youtube.com')) {
+    const video_id = new URL(card.video.url).searchParams.get('v')
+    video_frame.src = `https://www.youtube-nocookie.com/embed/${video_id}`
+    video_frame.hidden = false
+  } else {
+    video_frame.hidden = true
+  }
 })
 ////////////////////////////////////////////
 
@@ -50,7 +58,8 @@ rest_button.addEventListener('click', () => {
   round = 0
   button.disabled = false;
   rest_button.hidden = true;
-
+  video_frame.hidden = true
+  video_frame.src = ''
 
   document.getElementById('category-icon').innerHTML = ""
   document.getElementById('round').textContent = ""
