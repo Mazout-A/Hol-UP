@@ -1,42 +1,51 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import cards from "../data/cards.json";
 ---
 
 <Layout title="English Game">
     <p id="round"></p>
 
     <article id="card" class="card" hidden>
-        <header class="card_top">
-            <span id="category-icon"></span>
-            <span id="trend-icon"></span>
-            <p class="card_score">
-                <i data-lucide="gauge"></i> <span id="score"></span>
-            </p>
-        </header>
-
-        <p id="year" class="card_year"></p>
         <h2 id="title" class="card_title"></h2>
-        <p class="card_date">
-            <i data-lucide="calendar"></i> <span id="date"></span>
-        </p>
-        <p id="text" class="card_text"></p>
 
-        <iframe
-            id="video"
-            class="card_video"
-            hidden
-            title="Video"
-            allowfullscreen
-            referrerpolicy="strict-origin-when-cross-origin"
-            style="width: 100%; aspect-ratio: 16 / 9; border: 0;"
-        ></iframe>
+        <div class="card_interne">
+            <div class="card_effet">
+                <span id="category-icon"></span>
+                <span id="trend-icon"></span>
+                <p class="card_score">
+                    <i data-lucide="gauge"></i> <span id="score"></span>
+                </p>
+            </div>
 
-        <footer class="card_source">
-            <a id="source" href="#" target="_blank" rel="noopener noreferrer">
-                Source
-            </a>
-        </footer>
+            <p id="text" class="card_text"></p>
+
+            <div class="card_infos">
+                <p id="year" class="card_year"></p>
+
+                <p class="card_date">
+                    <i data-lucide="calendar"></i> <span id="date"></span>
+                </p>
+
+                <a
+                    id="source"
+                    class="card_source"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Source
+                </a>
+
+                <iframe
+                    id="video"
+                    class="card_video"
+                    hidden
+                    title="Video"
+                    allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+            </div>
+        </div>
     </article>
 
     <button id="draw">Draw a card</button>
