@@ -23,6 +23,7 @@ button.addEventListener('click', () => {
   const [card] = deck.splice(i, 1);
   const category = data.categories[card.category]
 
+  document.getElementById('card').hidden = false
   document.getElementById('category-icon').innerHTML = `<i data-lucide=${category.icon}></i>`
   createIcons({ icons })
 
@@ -74,4 +75,5 @@ rest_button.addEventListener('click', () => {
   document.getElementById('date').textContent = ""
   document.getElementById('score').textContent = ""
   document.getElementById('source').href = ""
+  document.getElementById('card').hidden = true
 })

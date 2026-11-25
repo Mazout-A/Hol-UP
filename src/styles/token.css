@@ -1,3 +1,25 @@
 :root {
+  /* Couleurs : à remplacer par celles du créa */
+  --bg: #1a2238;
+  --surface: #fbf8f1;
+  --text: #1a2238;
+  --accent: #d9482b;
+  --positive: #2f9e6e;
+  --negative: #d64545;
 
+  /* Polices */
+  --font-display: 'Dingdong', 'Switzer', system-ui, sans-serif;
+  --font-body: 'Switzer', system-ui, sans-serif;
+
+  /* Tailles de texte */
+  --text-s: 0.875rem;
+  --text-m: 1rem;
+  --text-l: 1.5rem;
+  --text-year: 3.5rem;
+
+  /* Espaces et formes */
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 2rem;
+  --radius: 1rem;
 }
