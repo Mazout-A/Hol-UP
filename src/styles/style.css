@@ -47,3 +47,20 @@ body{
     line-height: 1.1;
     text-wrap: balance;
 }
+
+.card_interne {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    padding: var(--space-m);
+    background: var(--surface-2);
+}
+
+.card_interne p {
+    margin: 0;
+}
+
+.card_text {
+    font-size: var(--text-m);
+    line-height: 1.5;
+}
