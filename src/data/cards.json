@@ -1,0 +1,47 @@
+[
+  {
+    "year": "1066",
+    "title": {
+      "en": "Battle of Hastings",
+      "fr": "Bataille d'Hastings"
+    },
+    "text": {
+      "en": "William of Normandy defeats King Harold II in Sussex and goes on to be crowned King of England.",
+      "fr": "Guillaume de Normandie bat le roi Harold II dans le Sussex, puis est couronné roi d'Angleterre."
+    },
+    "source": {
+      "name": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Battle_of_Hastings"
+    }
+  },
+  {
+    "year": "1215",
+    "title": {
+      "en": "Magna Carta",
+      "fr": "Grande Charte"
+    },
+    "text": {
+      "en": "King John agrees at Runnymede to limits on royal power, a founding step for English law.",
+      "fr": "Le roi Jean accepte à Runnymede de limiter le pouvoir royal, une étape fondatrice du droit anglais."
+    },
+    "source": {
+      "name": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Magna_Carta"
+    }
+  },
+  {
+    "year": "1666",
+    "title": {
+      "en": "Great Fire of London",
+      "fr": "Grand incendie de Londres"
+    },
+    "text": {
+      "en": "A fire that starts in a baker's shop on Pudding Lane destroys most of the medieval city in four days.",
+      "fr": "Un feu parti d'une boulangerie de Pudding Lane détruit l'essentiel de la ville médiévale en quatre jours."
+    },
+    "source": {
+      "name": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Great_Fire_of_London"
+    }
+  }
+]
