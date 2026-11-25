@@ -4,16 +4,6 @@ import cards from "../data/cards.json";
 ---
 
 <Layout title="English Game">
-    <!-- <ul>
-        {cards.map((card) => (
-            <li>
-                {card.year} : {card.title.en}
-            </li>
-        ))}
-    </ul> -->
-
-    <button id="draw">Draw a card</button>
-
     <p id="round"></p>
 
     <article id="card" class="card">
@@ -49,6 +39,7 @@ import cards from "../data/cards.json";
         </footer>
     </article>
 
+    <button id="draw">Draw a card</button>
     <button id="reset" hidden>
         Reset
     </button>
