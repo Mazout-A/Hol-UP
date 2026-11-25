@@ -1,47 +1,237 @@
-[
-  {
-    "year": "1066",
-    "title": {
-      "en": "Battle of Hastings",
-      "fr": "Bataille d'Hastings"
-    },
-    "text": {
-      "en": "William of Normandy defeats King Harold II in Sussex and goes on to be crowned King of England.",
-      "fr": "Guillaume de Normandie bat le roi Harold II dans le Sussex, puis est couronné roi d'Angleterre."
-    },
-    "source": {
-      "name": "Wikipedia",
-      "url": "https://en.wikipedia.org/wiki/Battle_of_Hastings"
-    }
+{
+  "meta": {
+    "title": "20 market crises and events: stocks, real estate, savings",
+    "iconLibrary": "lucide",
+    "scoreScale": "Negative: -1 to -4 | Positive: +1 to +4",
+    "note": "Figures are approximate. Sources marked verified=true were found online; verified=false links are standard reference pages that were not checked."
   },
-  {
-    "year": "1215",
-    "title": {
-      "en": "Magna Carta",
-      "fr": "Grande Charte"
-    },
-    "text": {
-      "en": "King John agrees at Runnymede to limits on royal power, a founding step for English law.",
-      "fr": "Le roi Jean accepte à Runnymede de limiter le pouvoir royal, une étape fondatrice du droit anglais."
-    },
-    "source": {
-      "name": "Wikipedia",
-      "url": "https://en.wikipedia.org/wiki/Magna_Carta"
-    }
+  "categories": {
+    "stocks_positive": { "icon": "chart-line", "trendIcon": "trending-up" },
+    "realestate_positive": { "icon": "house", "trendIcon": "trending-up" },
+    "stocks_negative": { "icon": "chart-line", "trendIcon": "trending-down" },
+    "realestate_negative": { "icon": "house", "trendIcon": "trending-down" },
+    "savings_positive": { "icon": "shield-check", "trendIcon": "trending-up" }
   },
-  {
-    "year": "1666",
-    "title": {
-      "en": "Great Fire of London",
-      "fr": "Grand incendie de Londres"
+  "cards": [
+    {
+      "id": 1,
+      "category": "stocks_positive",
+      "icon": "chart-line",
+      "score": 4,
+      "year": "2009",
+      "date": "9 March 2009",
+      "title": { "en": "Post-subprime rebound" },
+      "text": { "en": "After the March 2009 low, the S&P 500 multiplied by about 5 in 12 years." },
+      "source": { "name": "Wikipedia – Financial crisis of 2007–2008", "url": "https://en.wikipedia.org/wiki/Financial_crisis_of_2007%E2%80%932008", "verified": false }
     },
-    "text": {
-      "en": "A fire that starts in a baker's shop on Pudding Lane destroys most of the medieval city in four days.",
-      "fr": "Un feu parti d'une boulangerie de Pudding Lane détruit l'essentiel de la ville médiévale en quatre jours."
+    {
+      "id": 2,
+      "category": "stocks_positive",
+      "icon": "chart-line",
+      "score": 3,
+      "year": "2020",
+      "date": "23 March 2020",
+      "title": { "en": "Post-Covid rebound" },
+      "text": { "en": "After the 23 March 2020 low, the S&P 500 doubled in about 18 months, helped by massive central bank liquidity." },
+      "source": { "name": "Wikipedia – 2020 stock market crash", "url": "https://en.wikipedia.org/wiki/2020_stock_market_crash", "verified": false }
     },
-    "source": {
-      "name": "Wikipedia",
-      "url": "https://en.wikipedia.org/wiki/Great_Fire_of_London"
+    {
+      "id": 3,
+      "category": "stocks_positive",
+      "icon": "chart-line",
+      "score": 2,
+      "year": "2016",
+      "date": "24 June 2016",
+      "title": { "en": "Brexit" },
+      "text": { "en": "The S&P 500 lost about 5% in two days, then regained its level within weeks. Buying the low returned about 10% in six months." },
+      "source": { "name": "Wikipedia – Brexit", "url": "https://en.wikipedia.org/wiki/Brexit", "verified": false }
+    },
+    {
+      "id": 4,
+      "category": "stocks_positive",
+      "icon": "chart-line",
+      "score": 1,
+      "year": "2010",
+      "date": "6 May 2010",
+      "title": { "en": "Flash Crash" },
+      "text": { "en": "The Dow Jones dropped about 9% within minutes, then recovered most of it in the same session. The real gain was slim." },
+      "source": { "name": "Wikipedia – 2010 flash crash", "url": "https://en.wikipedia.org/wiki/2010_flash_crash", "verified": false }
+    },
+    {
+      "id": 5,
+      "category": "realestate_positive",
+      "icon": "house",
+      "score": 4,
+      "year": "1997–2007",
+      "date": "1997 to 2007",
+      "title": { "en": "Paris after the 1991–1997 crisis" },
+      "text": { "en": "Prices had fallen by about 30% until 1997, then rose 2.5 to 3 times until 2007." },
+      "source": { "name": "Notaires du Grand Paris – Taffin presentation (phases 1990–1997 and 1997–2008)", "url": "https://notairesdugrandparis.fr/sites/default/files/diaporama-cni-2014-02_0.pdf", "verified": true }
+    },
+    {
+      "id": 6,
+      "category": "realestate_positive",
+      "icon": "house",
+      "score": 3,
+      "year": "2012",
+      "date": "February 2012",
+      "title": { "en": "United States after the subprime crisis" },
+      "text": { "en": "Prices bottomed out in early 2012, then roughly doubled by 2022." },
+      "source": { "name": "FRED – S&P Case-Shiller U.S. National Home Price Index", "url": "https://fred.stlouisfed.org/series/CSUSHPINSA", "verified": false }
+    },
+    {
+      "id": 7,
+      "category": "realestate_positive",
+      "icon": "house",
+      "score": 2,
+      "year": "2013–2019",
+      "date": "2013 to 2019",
+      "title": { "en": "Ireland after the collapse" },
+      "text": { "en": "Prices were down about 50% from 2007. From the 2013 low, they rose about 80% by 2019." },
+      "source": { "name": "Wikipedia – Irish property bubble", "url": "https://en.wikipedia.org/wiki/Irish_property_bubble", "verified": false }
+    },
+    {
+      "id": 8,
+      "category": "realestate_positive",
+      "icon": "house",
+      "score": 1,
+      "year": "2020–2021",
+      "date": "2020 to 2021",
+      "title": { "en": "French property resilience during Covid" },
+      "text": { "en": "Despite the economic shock, existing home prices kept rising: about +6% in 2020 and +7% in 2021. A modest gain, but no crash." },
+      "source": { "name": "INSEE – Notaires-Insee index, Q4 2021", "url": "https://www.insee.fr/fr/statistiques/6052547", "verified": true }
+    },
+    {
+      "id": 9,
+      "category": "stocks_negative",
+      "icon": "chart-line",
+      "score": -4,
+      "year": "1929",
+      "date": "24–29 October 1929",
+      "title": { "en": "Crash of 1929" },
+      "text": { "en": "The Dow Jones lost about 89% until 1932, and the Great Depression followed. It only regained its level in 1954." },
+      "source": { "name": "Wikipedia – Wall Street Crash of 1929", "url": "https://en.wikipedia.org/wiki/Wall_Street_Crash_of_1929", "verified": false }
+    },
+    {
+      "id": 10,
+      "category": "stocks_negative",
+      "icon": "chart-line",
+      "score": -3,
+      "year": "2000–2002",
+      "date": "March 2000 to October 2002",
+      "title": { "en": "Dot-com bubble" },
+      "text": { "en": "The Nasdaq lost about 78% between 2000 and 2002, and the S&P 500 about 49%. The Nasdaq took 15 years to regain its peak." },
+      "source": { "name": "Wikipedia – Dot-com bubble", "url": "https://en.wikipedia.org/wiki/Dot-com_bubble", "verified": false }
+    },
+    {
+      "id": 11,
+      "category": "stocks_negative",
+      "icon": "chart-line",
+      "score": -2,
+      "year": "1987",
+      "date": "19 October 1987",
+      "title": { "en": "Black Monday" },
+      "text": { "en": "The Dow Jones lost 22.6% in a single session, a record. The market nevertheless recovered in about 2 years." },
+      "source": { "name": "Wikipedia – Black Monday (1987)", "url": "https://en.wikipedia.org/wiki/Black_Monday_(1987)", "verified": false }
+    },
+    {
+      "id": 12,
+      "category": "stocks_negative",
+      "icon": "chart-line",
+      "score": -1,
+      "year": "2018",
+      "date": "October to December 2018",
+      "title": { "en": "Late-2018 selloff" },
+      "text": { "en": "The S&P 500 fell almost 20% from its September peak to Christmas Eve, on Fed rate hikes and trade-war fears. It rebounded in early 2019." },
+      "source": { "name": "CBS News – Stocks end 2018 with worst year since 2008", "url": "https://www.cbsnews.com/news/stocks-down-end-of-year-2018-worst-year-since-2008-recession", "verified": true }
+    },
+    {
+      "id": 13,
+      "category": "realestate_negative",
+      "icon": "house",
+      "score": -4,
+      "year": "2006–2012",
+      "date": "2006 to 2012",
+      "title": { "en": "U.S. subprime housing crash" },
+      "text": { "en": "Prices fell about 27% nationally, and more than 50% in some cities. Foreclosures numbered in the millions." },
+      "source": { "name": "Wikipedia – United States housing bubble", "url": "https://en.wikipedia.org/wiki/United_States_housing_bubble", "verified": false }
+    },
+    {
+      "id": 14,
+      "category": "realestate_negative",
+      "icon": "house",
+      "score": -3,
+      "year": "2008–2014",
+      "date": "2008 to 2014",
+      "title": { "en": "Spain" },
+      "text": { "en": "Prices fell about 35% after the bubble burst. Banks had to be bailed out." },
+      "source": { "name": "Wikipedia – Spanish property bubble", "url": "https://en.wikipedia.org/wiki/Spanish_property_bubble", "verified": false }
+    },
+    {
+      "id": 15,
+      "category": "realestate_negative",
+      "icon": "house",
+      "score": -2,
+      "year": "2021",
+      "date": "September 2021 (ongoing)",
+      "title": { "en": "China / Evergrande" },
+      "text": { "en": "Developer Evergrande defaulted and China's property sector slowed sharply. New-home prices fell in many cities; recent figures should be checked." },
+      "source": { "name": "Wikipedia – Evergrande Group", "url": "https://en.wikipedia.org/wiki/Evergrande_Group", "verified": false }
+    },
+    {
+      "id": 16,
+      "category": "realestate_negative",
+      "icon": "house",
+      "score": -1,
+      "year": "2023–2024",
+      "date": "2023 to 2024",
+      "title": { "en": "French correction after the rate hikes" },
+      "text": { "en": "Higher mortgage rates pushed existing home prices down about 5% year on year by early 2024, without a collapse." },
+      "source": { "name": "INSEE – Notaires-Insee index, Q1 2024", "url": "https://www.insee.fr/fr/statistiques/8190571", "verified": true }
+    },
+    {
+      "id": 17,
+      "category": "savings_positive",
+      "icon": "shield-check",
+      "score": 4,
+      "year": "2008",
+      "date": "2008",
+      "title": { "en": "U.S. Treasuries in 2008" },
+      "text": { "en": "Investors fled stocks for U.S. government debt. Long-term bonds gained about 15 to 20%." },
+      "source": { "name": "FRED – 10-Year Treasury yield", "url": "https://fred.stlouisfed.org/series/DGS10", "verified": false }
+    },
+    {
+      "id": 18,
+      "category": "savings_positive",
+      "icon": "shield-check",
+      "score": 3,
+      "year": "2008",
+      "date": "2008",
+      "title": { "en": "Euro funds during the 2008 crisis" },
+      "text": { "en": "French life insurance euro funds paid roughly 4 to 4.5%, while the CAC 40 lost 42.7%. The capital is guaranteed." },
+      "source": { "name": "FranceTransactions – 2008 euro fund yields (AFER 4.36%)", "url": "https://www.francetransactions.com/actus/news-epargne/info-epargne-0002196.html", "verified": true }
+    },
+    {
+      "id": 19,
+      "category": "savings_positive",
+      "icon": "shield-check",
+      "score": 2,
+      "year": "2022–2023",
+      "date": "2022 to 2023",
+      "title": { "en": "Money market funds after the rate hikes" },
+      "text": { "en": "Very safe investments paid about 3 to 4% in the eurozone and about 5% in the United States." },
+      "source": { "name": "FRED – Federal funds effective rate", "url": "https://fred.stlouisfed.org/series/FEDFUNDS", "verified": false }
+    },
+    {
+      "id": 20,
+      "category": "savings_positive",
+      "icon": "shield-check",
+      "score": 1,
+      "year": "2023–2025",
+      "date": "1 February 2023 to 31 January 2025",
+      "title": { "en": "Livret A at 3%" },
+      "text": { "en": "The capital is guaranteed and the interest is tax-free. Against 2023 inflation, the real return stays low." },
+      "source": { "name": "service-public.fr – Livret A", "url": "https://www.service-public.fr/particuliers/vosdroits/F2365", "verified": false }
     }
-  }
-]
+  ]
+}
