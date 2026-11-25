@@ -42,12 +42,16 @@ button.addEventListener('click', () => {
   document.getElementById('text').textContent = card.text[en];   //signaler le parametre que je veux, EN card.text.en
   document.getElementById('source').href = card.source.url;
 
+  document.getElementById('date').textContent = card.date
+  document.getElementById('score').textContent = card.score
+
   if (card.video && card.video.url.includes('youtube.com')) {
     const video_id = new URL(card.video.url).searchParams.get('v')
     video_frame.src = `https://www.youtube-nocookie.com/embed/${video_id}`
     video_frame.hidden = false
   } else {
     video_frame.hidden = true
+    video_frame.src = ''
   }
 })
 ////////////////////////////////////////////

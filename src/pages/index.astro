@@ -14,34 +14,41 @@ import cards from "../data/cards.json";
 
     <button id="draw">Draw a card</button>
 
-    <p>
-        <i data-lucide="calendar"></i> <span id="date"></span>
-    </p>
-    <p>
-        <i data-lucide="gauge"></i> <span id="score"></span>
-    </p>
-    <span id="category-icon"></span>
-    <span id="trend-icon"></span>
+    <p id="round"></p>
 
-    <article id="card">
-        <p id="year"></p>
-        <h2 id="title"></h2>
-        <p id="text"></p>
+    <article id="card" class="card">
+        <header class="card_top">
+            <span id="category-icon"></span>
+            <span id="trend-icon"></span>
+            <p class="card_score">
+                <i data-lucide="gauge"></i> <span id="score"></span>
+            </p>
+        </header>
+
+        <p id="year" class="card_year"></p>
+        <h2 id="title" class="card_title"></h2>
+        <p class="card_date">
+            <i data-lucide="calendar"></i> <span id="date"></span>
+        </p>
+        <p id="text" class="card_text"></p>
+
         <iframe
             id="video"
+            class="card_video"
             hidden
             title="Video"
             allowfullscreen
             referrerpolicy="strict-origin-when-cross-origin"
             style="width: 100%; aspect-ratio: 16 / 9; border: 0;"
-        >
-            </iframe>
-        <a id="source" href="#" target="_blank" rel="">
-            Read source
-        </a>
+        ></iframe>
+
+        <footer class="card_source">
+            <a id="source" href="#" target="_blank" rel="noopener noreferrer">
+                Source
+            </a>
+        </footer>
     </article>
 
-    <p id="round"></p>
     <button id="reset" hidden>
         Reset
     </button>
