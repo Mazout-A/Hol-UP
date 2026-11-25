@@ -66,9 +66,12 @@ rest_button.addEventListener('click', () => {
   video_frame.src = ''
 
   document.getElementById('category-icon').innerHTML = ""
+  document.getElementById('trend-icon').innerHTML = ""
   document.getElementById('round').textContent = ""
   document.getElementById('year').textContent = ""
   document.getElementById('title').textContent =  ""
   document.getElementById('text').textContent =  ""
+  document.getElementById('date').textContent = ""
+  document.getElementById('score').textContent = ""
   document.getElementById('source').href = ""
 })
