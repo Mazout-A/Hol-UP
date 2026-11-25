@@ -28,7 +28,13 @@
         { "name": "NBC News – Happy Seventh Birthday to Wall Street's Bull Market", "url": "https://www.nbcnews.com/news/amp/ncna534776" },
         { "name": "NBC News – Market almost unrecognizable from a decade ago", "url": "https://www.nbcnews.com/business/economy/recession-what-recession-market-almost-unrecognizable-decade-ago-n980681" }
       ],
-      "video": null
+      "video": {
+        "title": "Feeling Dumb If You Didn't Buy Stocks in March 2009",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=pE5b_0IRfzk",
+        "lang": "en",
+        "status": "candidate"
+      }
     },
     {
       "id": 2,
@@ -44,9 +50,9 @@
         { "name": "Axios – S&P 500 marks 100% gain from March 2020 low", "url": "https://www.axios.com/2021/08/18/stock-market-sp-100-gain-pandemic" }
       ],
       "video": {
-        "title": "S&P 500 doubles from its Covid low (354 days)",
-        "channel": "Unknown (Dailymotion upload, content matches CNBC's story)",
-        "url": "https://www.dailymotion.com/video/x83w2v1",
+        "title": "Here's a recap of the March 23, 2020 market lows and what contributed to the rebound",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=Gfi5kXYkgtM",
         "lang": "en",
         "status": "candidate"
       }
@@ -147,11 +153,10 @@
         { "name": "European Commission – Housing Affordability in Ireland", "url": "https://economy-finance.ec.europa.eu/system/files/2020-12/eb061_en.pdf" }
       ],
       "video": {
-        "title": "Ghost Land (aftermath of Ireland's building boom, 2010; not about the recovery)",
-        "channel": "RTÉ Archives",
-        "url": "https://www.rte.ie/archives/exhibitions/894-house-and-home/139162-ghost-land",
+        "title": "Ireland's 'Celtic Tiger' purring again, but at what price? (about the economy's recovery, not specifically property prices)",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=UYnk5ZMTadc",
         "lang": "en",
-        "duration": "5:04",
         "status": "candidate"
       }
     },
@@ -168,7 +173,13 @@
       "sources": [
         { "name": "INSEE – Notaires-Insee index, Q4 2020", "url": "https://www.insee.fr/fr/statistiques/5058675" }
       ],
-      "video": null
+      "video": {
+        "title": "Immobilier : Les confinements ne ralentissent pas la hausse des prix ! (+6.6% over one year; the index may differ from the card's Notaires-Insee figures)",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=JqsZL17eJ_Y",
+        "lang": "fr",
+        "status": "candidate"
+      }
     },
     {
       "id": 9,
@@ -249,11 +260,10 @@
         { "name": "NBC News – US stocks post worst year in a decade", "url": "https://www.nbcnews.com/business/markets/u-s-stocks-post-worst-year-decade-s-p-500-n953401" }
       ],
       "video": {
-        "title": "Stocks suffer worst Christmas Eve declines ever",
-        "channel": "CNN",
-        "url": "https://www.cnn.com/2018/12/24/investing/stock-market-today-dow",
+        "title": "Markets plunge amid worst Christmas Eve session on record",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=u8k_zwGUWaI",
         "lang": "en",
-        "duration": "1:25",
         "status": "candidate"
       }
     },
@@ -293,9 +303,9 @@
         { "name": "Bloomberg – Spain Home-Price Growth Lags Rising Purchases as Glut Persists", "url": "https://www.bloomberg.com/news/articles/2015-06-09/spain-home-price-growth-lags-rising-purchases-as-glut-persists" }
       ],
       "video": {
-        "title": "Maisons à vendre ! Les banques liquident en Espagne",
-        "channel": "Euronews",
-        "url": "https://fr.euronews.com/2012/06/22/maisons-a-vendre-les-banques-liquident-en-espagne",
+        "title": "Espagne: 10 ans après la crise, les villes fantômes ressuscitent (aftermath of the bubble, not the price fall itself)",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=7OmhBQAx-xw",
         "lang": "fr",
         "status": "candidate"
       }
@@ -390,9 +400,9 @@
         { "name": "San Francisco Fed – FOMC Rewind, July 2023", "url": "https://www.frbsf.org/research-and-insights/blog/community-development/2023/08/02/fomc-rewind-july-2023" }
       ],
       "video": {
-        "title": "Comment sécuriser le rendement de son épargne ? (monétaire, 2023)",
-        "channel": "MAIF (insurer; weak candidate, link goes to the transcript)",
-        "url": "https://Www.Maif.fr/files/live/sites/maif-fr/files/pdf/fichiers-transcription-textuelle/transcription-comment-securiser-le-rendement-de-son-epargne.pdf",
+        "title": "Monétaires : voici comment s'enrichir en dormant",
+        "channel": "Unknown (not confirmed)",
+        "url": "https://www.youtube.com/watch?v=Ivvo9F6KYhU",
         "lang": "fr",
         "status": "candidate"
       }
