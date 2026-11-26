@@ -7,11 +7,11 @@
     "note": "Figures were checked against the sources listed. A source URL marked verified=true appeared in real search results and its excerpt matched the figure. Videos are candidates found in search results: none was opened or watched. video=null means no reliable video was found."
   },
   "categories": {
-    "stocks_positive": { "icon": "chart-line", "trendIcon": "trending-up" },
-    "realestate_positive": { "icon": "house", "trendIcon": "trending-up" },
-    "stocks_negative": { "icon": "chart-line", "trendIcon": "trending-down" },
-    "realestate_negative": { "icon": "house", "trendIcon": "trending-down" },
-    "savings_positive": { "icon": "shield-check", "trendIcon": "trending-up" }
+    "stocks_positive":     { "icon": "chart-line",   "trendIcon": "trending-up",   "label": { "en": "Stocks",      "fr": "Bourse" } },
+    "realestate_positive": { "icon": "house",        "trendIcon": "trending-up",   "label": { "en": "Real estate", "fr": "Immobilier" } },
+    "stocks_negative":     { "icon": "chart-line",   "trendIcon": "trending-down", "label": { "en": "Stocks",      "fr": "Bourse" } },
+    "realestate_negative": { "icon": "house",        "trendIcon": "trending-down", "label": { "en": "Real estate", "fr": "Immobilier" } },
+    "savings_positive":    { "icon": "shield-check", "trendIcon": "trending-up",   "label": { "en": "Savings",     "fr": "Épargne" } }
   },
   "cards": [
     {

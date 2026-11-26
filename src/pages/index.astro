@@ -3,17 +3,17 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="English Game">
-    <p id="round"></p>
-
     <article id="card" class="card" hidden>
-        <h2 id="title" class="card_title"></h2>
-
         <div class="card_interne">
+            <h2 id="title" class="card_title"></h2>
+
             <div class="card_effet">
                 <span id="category-icon"></span>
                 <span id="trend-icon"></span>
                 <p class="card_score">
-                    <i data-lucide="gauge"></i> <span id="score"></span>
+                    <i data-lucide="gauge"></i>
+                    <span id="score"></span>
+                    <span id="score-label"></span>
                 </p>
             </div>
 
@@ -48,10 +48,15 @@ import Layout from "../layouts/Layout.astro";
         </div>
     </article>
 
-    <button id="draw">Draw a card</button>
-    <button id="reset" hidden>
-        Reset
-    </button>
+    <div class="buttons">
+        <button id="draw" class="btn btn_draw">
+            <i data-lucide="trending-up"></i> Draw a card
+        </button>
+        <p id="round"></p>
+        <button id="reset" class="btn btn_reset" hidden>
+            <i data-lucide="rotate-ccw"></i> Reset
+        </button>
+    </div>
 </Layout>
 
 <script>

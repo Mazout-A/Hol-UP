@@ -1,7 +1,12 @@
-.card_video {
+/*.card_video {
+  flex-basis: 100%;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 25dvh;
   border: 0;
+}*/
+
+iframe{
+    display: none;
 }
 
 *, *::before, *::after{
@@ -9,13 +14,13 @@
 }
 
 [hidden] {
-    display: none; !important
+    display: none !important;
 }
 
 body{
     margin: 0;
-    min-height: 100vh;
-    padding: var(--space-1);
+    min-height: 100dvh;
+    padding: var(--space-m);
     background: var(--bg);
     color: var(--surface);
     font-family: var(--font-body);
@@ -23,15 +28,24 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-m);
+    gap: var(--space-s);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.buttons p {
+  margin: 0;
 }
 
 .card {
     width: min(100%, 40rem);
     background: var(--surface);
     color: var(--text);
-    border-radius: var(--radius);
-    padding: var(--space-1);
+    padding: var(--space-m);
     display: flex;
     flex-direction: column;
     gap: var(--space-m);
@@ -52,8 +66,10 @@ body{
     display: flex;
     flex-direction: column;
     gap: var(--space-m);
-    padding: var(--space-m);
+    padding: var(--space-l);
     background: var(--surface-2);
+    border-radius: 1.5rem;
+    corner-shape: scoop;
 }
 
 .card_interne p {
@@ -63,4 +79,170 @@ body{
 .card_text {
     font-size: var(--text-m);
     line-height: 1.5;
+}
+
+.card_effet {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+#category-icon,
+#trend-icon {
+  display: inline-flex;
+}
+
+.card_score {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  font-family: var(--font-display);
+  font-size: var(--text-l);
+}
+
+.card_effet svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+[data-sentiment="positive"] #trend-icon,
+[data-sentiment="positive"] .card_score { color: var(--positive); }
+
+[data-sentiment="negative"] #trend-icon,
+[data-sentiment="negative"] .card_score { color: var(--negative); }
+
+
+.card_infos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-s) var(--space-m);
+  padding-top: var(--space-m);
+  border-top: 2px solid currentColor;
+}
+
+/*.card_year {
+  font-family: var(--font-display);
+  font-size: var(--text-l);
+}*/
+
+.card_year {
+  display: none;
+}
+
+.card_date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  font-size: var(--text-s);
+}
+
+/*.card_date svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}*/
+
+.card_effet svg,
+.card_date svg {
+  display: none;
+}
+
+.card_source {
+  margin-left: auto;
+  color: inherit;
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+}
+
+.card_source:hover,
+.card_source:focus-visible {
+  color: var(--accent);
+}
+
+.card_video {
+  flex-basis: 100%;
+}
+
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-l);
+  font-family: var(--font-display);
+  font-size: var(--text-l);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+.btn_draw {
+  background: var(--positive);
+  color: var(--bg);
+  box-shadow: 0 0.3rem 0 color-mix(in srgb, var(--positive), black 40%);
+}
+
+.btn_draw:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.45rem 0 color-mix(in srgb, var(--positive), black 40%);
+}
+
+.btn_draw:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.btn_draw:active {
+  transform: translateY(0.3rem);
+  box-shadow: 0 0 0 transparent;
+}
+
+
+.btn_reset {
+  background: transparent;
+  color: var(--negative);
+  border-color: var(--negative);
+}
+
+.btn_reset:hover {
+  background: var(--negative);
+  color: var(--bg);
+}
+
+.btn_reset:hover svg {
+  transform: rotate(-180deg);
+}
+
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+#round {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-l);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn svg { transition: none; }
 }

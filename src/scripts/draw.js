@@ -1,10 +1,12 @@
 import data from '../data/cards.json'
-import { createIcons, Calendar, Gauge, BookOpen, ChartLine, House, ShieldCheck, TrendingUp, TrendingDown } from 'lucide'
+import { createIcons, Calendar, Gauge, BookOpen, ChartLine, House, ShieldCheck, TrendingUp, TrendingDown, RotateCcw } from 'lucide'
 ////////////////////////////////////////////
 
 
-const icons = { Calendar, Gauge, BookOpen, ChartLine, House, ShieldCheck, TrendingUp, TrendingDown }
-const button = document.getElementById('draw')
+const icons = { Calendar, Gauge, BookOpen, ChartLine, House, ShieldCheck, TrendingUp, TrendingDown, RotateCcw };
+createIcons({ icons });
+
+const button = document.getElementById('draw');
 const en = 'en';
 const rest_button = document.getElementById('reset');
 const max_rounds = 6;
@@ -22,9 +24,13 @@ button.addEventListener('click', () => {
   const i = Math.floor(Math.random() * deck.length);
   const [card] = deck.splice(i, 1);
   const category = data.categories[card.category]
+  const sign = card.score > 0 ? '+' : ''
+  const source = document.getElementById('source')
 
+  document.getElementById('card').dataset.sentiment = card.score > 0 ? 'positive' : 'negative'
   document.getElementById('card').hidden = false
-  document.getElementById('category-icon').innerHTML = `<i data-lucide=${category.icon}></i>`
+  document.getElementById('category-icon').innerHTML = `<i data-lucide="${category.icon}"></i>`
+  document.getElementById('trend-icon').innerHTML = `<i data-lucide="${category.trendIcon}"></i>`
   createIcons({ icons })
 
 
@@ -39,12 +45,19 @@ button.addEventListener('click', () => {
 
 
   document.getElementById('year').textContent = card.year;
-  document.getElementById('title').textContent = card.title[en]; //signaler le parametre que je veux, EN card.title.en
-  document.getElementById('text').textContent = card.text[en];   //signaler le parametre que je veux, EN card.text.en
-  document.getElementById('source').href = card.source.url;
+  document.getElementById('title').textContent = card.title[en];
+  document.getElementById('text').textContent = card.text[en];
+
+
+  source.href = card.source.url
+  source.textContent = new URL(card.source.url).hostname.replace('www.', '')
+  source.title = card.source.name
 
   document.getElementById('date').textContent = card.date
-  document.getElementById('score').textContent = card.score
+
+
+  document.getElementById('score').textContent = `${sign}${card.score}`
+  document.getElementById('score-label').textContent = category.label[en]
 
   if (card.video && card.video.url.includes('youtube.com')) {
     const video_id = new URL(card.video.url).searchParams.get('v')
@@ -74,6 +87,7 @@ rest_button.addEventListener('click', () => {
   document.getElementById('text').textContent =  ""
   document.getElementById('date').textContent = ""
   document.getElementById('score').textContent = ""
+  document.getElementById('score-label').textContent = ""
   document.getElementById('source').href = ""
   document.getElementById('card').hidden = true
 })
