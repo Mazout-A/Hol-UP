@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+import data from "../../data/cards.json";
+
+// Une page par carte : /cards/1/, /cards/2/ ... (c'est l'adresse des QR codes)
+export function getStaticPaths() {
+    return data.cards.map((card, index) => ({
+        params: { id: String(card.id) },
+        props: {
+            card,
+            prev: data.cards[index - 1] ?? null,
+            next: data.cards[index + 1] ?? null,
+        },
+    }));
+}
+
+const { card, prev, next } = Astro.props;
+const category = data.categories[card.category as keyof typeof data.categories];
+const otherSources = card.sources ?? [];
+---
+
+<Layout title={`${card.title.en} – English Game`} description={card.text.en}>
+    <main class="page">
+        <div class="prose">
+            <a class="backlink" href="/library">← Back to the library</a>
+
+            <h1 class="sr-only">{card.title.en}</h1>
+            <p class="eyebrow">Card {card.id} of {data.cards.length}{card.country ? ` · ${card.country}` : ""}</p>
+
+            <Card card={card} category={category} />
+
+            <h2>Sources</h2>
+            <ul class="sources">
+                <li>
+                    <a href={card.source.url} target="_blank" rel="noopener noreferrer">
+                        {card.source.name}
+                    </a>
+                    <span class="sources_tag">Main source</span>
+                </li>
+                {
+                    otherSources.map((s) => (
+                        <li>
+                            <a href={s.url} target="_blank" rel="noopener noreferrer">
+                                {s.name}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+
+            <nav class="pager" aria-label="Other cards">
+                {
+                    prev ? (
+                        <a class="pager_link" href={`/cards/${prev.id}/`}>← {prev.title.en}</a>
+                    ) : (
+                        <span></span>
+                    )
+                }
+                {
+                    next ? (
+                        <a class="pager_link pager_next" href={`/cards/${next.id}/`}>{next.title.en} →</a>
+                    ) : (
+                        <span></span>
+                    )
+                }
+            </nav>
+        </div>
+    </main>
+</Layout>

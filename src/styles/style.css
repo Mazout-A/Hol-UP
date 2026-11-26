@@ -1,16 +1,10 @@
-/*.card_video {
-  flex-basis: 100%;
-  width: 100%;
-  height: 25dvh;
-  border: 0;
-}*/
-
-iframe{
-    display: none;
-}
-
 *, *::before, *::after{
     box-sizing: border-box;
+}
+
+html {
+    scrollbar-gutter: stable;
+    scroll-padding-top: calc(var(--header-height) + 8rem);
 }
 
 [hidden] {
@@ -20,11 +14,11 @@ iframe{
 body{
     margin: 0;
     min-height: 100dvh;
-    padding: var(--space-m);
-    background: var(--bg);
-    color: var(--surface);
+    padding: var(--space-m) var(--page-margin);
+    background: var(--color-background);
+    color: var(--color-text);
     font-family: var(--font-body);
-    font-size: var(--text-m);
+    font-size: var(--font-size-m);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,8 +37,9 @@ body{
 
 .card {
     width: min(100%, 40rem);
-    background: var(--surface);
-    color: var(--text);
+    min-height: 22rem;
+    background: var(--color-card-background);
+    color: var(--color-card-text);
     padding: var(--space-m);
     display: flex;
     flex-direction: column;
@@ -57,17 +52,19 @@ body{
     max-width: 100%;
     padding: var(--space-s) var(--space-m);
     font-family: var(--font-display);
-    font-size: var(--text-l);
+    font-size: var(--font-size-l);
     line-height: 1.1;
     text-wrap: balance;
 }
 
 .card_interne {
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: var(--space-m);
     padding: var(--space-l);
-    background: var(--surface-2);
+    background: var(--color-card-inner-background);
     border-radius: 1.5rem;
     corner-shape: scoop;
 }
@@ -77,7 +74,10 @@ body{
 }
 
 .card_text {
-    font-size: var(--text-m);
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    font-size: var(--font-size-m);
     line-height: 1.5;
 }
 
@@ -87,31 +87,18 @@ body{
   gap: var(--space-s);
 }
 
-#category-icon,
-#trend-icon {
-  display: inline-flex;
-}
-
 .card_score {
   margin-left: auto;
   display: flex;
   align-items: center;
   gap: var(--space-s);
   font-family: var(--font-display);
-  font-size: var(--text-l);
+  font-size: var(--font-size-l);
 }
 
-.card_effet svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-}
+[data-sentiment="positive"] .card_score { color: var(--color-positive-text); }
 
-[data-sentiment="positive"] #trend-icon,
-[data-sentiment="positive"] .card_score { color: var(--positive); }
-
-[data-sentiment="negative"] #trend-icon,
-[data-sentiment="negative"] .card_score { color: var(--negative); }
+[data-sentiment="negative"] .card_score { color: var(--color-negative-text); }
 
 
 .card_infos {
@@ -123,31 +110,9 @@ body{
   border-top: 2px solid currentColor;
 }
 
-/*.card_year {
-  font-family: var(--font-display);
-  font-size: var(--text-l);
-}*/
-
 .card_year {
-  display: none;
-}
-
-.card_date {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  font-size: var(--text-s);
-}
-
-/*.card_date svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-}*/
-
-.card_effet svg,
-.card_date svg {
-  display: none;
+  font-family: var(--font-display);
+  font-size: var(--font-size-l);
 }
 
 .card_source {
@@ -159,12 +124,9 @@ body{
 
 .card_source:hover,
 .card_source:focus-visible {
-  color: var(--accent);
+  color: var(--color-accent);
 }
 
-.card_video {
-  flex-basis: 100%;
-}
 
 
 .btn {
@@ -173,38 +135,28 @@ body{
   gap: var(--space-s);
   padding: var(--space-s) var(--space-l);
   font-family: var(--font-display);
-  font-size: var(--text-l);
+  font-size: var(--font-size-l);
   border: 2px solid transparent;
   border-radius: 999px;
   cursor: pointer;
   transition: transform 0.12s, box-shadow 0.12s;
 }
 
-.btn svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  transition: transform 0.2s;
-}
-
 .btn:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--color-accent);
   outline-offset: 3px;
 }
 
 
 .btn_draw {
-  background: var(--positive);
-  color: var(--bg);
-  box-shadow: 0 0.3rem 0 color-mix(in srgb, var(--positive), black 40%);
+  background: var(--color-positive);
+  color: var(--color-background);
+  box-shadow: 0 0.3rem 0 color-mix(in srgb, var(--color-positive), black 40%);
 }
 
 .btn_draw:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0.45rem 0 color-mix(in srgb, var(--positive), black 40%);
-}
-
-.btn_draw:hover svg {
-  transform: translate(3px, -3px);
+  box-shadow: 0 0.45rem 0 color-mix(in srgb, var(--color-positive), black 40%);
 }
 
 .btn_draw:active {
@@ -215,17 +167,13 @@ body{
 
 .btn_reset {
   background: transparent;
-  color: var(--negative);
-  border-color: var(--negative);
+  color: var(--color-negative);
+  border-color: var(--color-negative);
 }
 
 .btn_reset:hover {
-  background: var(--negative);
-  color: var(--bg);
-}
-
-.btn_reset:hover svg {
-  transform: rotate(-180deg);
+  background: var(--color-negative);
+  color: var(--color-background);
 }
 
 
@@ -240,9 +188,1115 @@ body{
 #round {
   font-family: var(--font-display);
   font-variant-numeric: tabular-nums;
-  font-size: var(--text-l);
+  font-size: var(--font-size-l);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn, .btn svg { transition: none; }
+  .btn { transition: none; }
+}
+
+
+/* ---------- Utilitaires ---------- */
+
+/* Texte lu par les lecteurs d'écran mais non affiché */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ---------- Header ---------- */
+
+/* Barre fine sur toute la largeur, collée en haut ; le contenu garde les marges de la page */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  align-self: stretch;
+  margin: calc(-1 * var(--space-m)) calc(-1 * var(--page-margin)) var(--space-l);
+  height: var(--header-height);
+  padding-inline: max(var(--page-margin), calc((100% + 2 * var(--page-margin) - var(--page-max)) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  background: var(--color-background);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text), transparent 85%);
+}
+
+.header_brand {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.header_nav {
+  display: flex;
+  gap: 2px;
+}
+
+.header_link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  padding-inline: 0.85rem;
+  font-size: 0.8125rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 999px;
+  opacity: 0.75;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.header_link:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--color-text), transparent 90%);
+}
+
+.header_link[aria-current="page"] {
+  opacity: 1;
+  background: color-mix(in srgb, var(--color-text), transparent 85%);
+}
+
+.header_link:focus-visible,
+.header_brand:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Bibliothèque ---------- */
+
+.library {
+  width: min(100%, var(--page-max));
+  display: flex;
+  flex-direction: column;
+}
+
+.library_head {
+  padding: 0 0 var(--space-m);
+}
+
+.library_title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: 1.1;
+}
+
+/* Barre de filtres : une seule ligne, reste visible pendant le défilement */
+.library_toolbar {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-s) var(--space-m);
+  padding: var(--space-s) 0;
+  background: var(--color-background);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text), transparent 85%);
+}
+
+/* Contrôle segmenté : un seul bloc, l'option choisie ressort */
+.segmented {
+  display: inline-flex;
+  gap: 2px;
+  height: var(--control-height);
+  padding: 3px;
+  background: color-mix(in srgb, var(--color-text), transparent 88%);
+  border-radius: 999px;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.segment:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-text), transparent 85%);
+}
+
+.segment[aria-pressed="true"] {
+  background: var(--color-text);
+  color: var(--color-background);
+}
+
+.segment:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.segment:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.segment_count {
+  min-width: 2ch;
+  text-align: right;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+/* Gains / Pertes : pastille de couleur, et couleur pleine quand choisi */
+.segment[data-tone]::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.segment[data-tone="positive"]::before { background: var(--color-positive); }
+.segment[data-tone="negative"]::before { background: var(--color-negative); }
+
+.segment[data-tone="positive"][aria-pressed="true"] { background: var(--color-positive); }
+.segment[data-tone="negative"][aria-pressed="true"] { background: var(--color-negative); }
+
+.segment[data-tone][aria-pressed="true"]::before {
+  background: var(--color-background);
+}
+
+/* Liste de tri : « Trier : » est dessiné devant la valeur choisie */
+.select_wrap {
+  position: relative;
+  display: inline-flex;
+  height: var(--control-height);
+}
+
+.select_wrap::before {
+  content: "Trier :";
+  position: absolute;
+  top: 50%;
+  left: 0.9rem;
+  transform: translateY(-50%);
+  font-size: 0.8125rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.select_wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.9rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.select {
+  appearance: none;
+  height: 100%;
+  padding: 0 2.2rem 0 3.9rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: inherit;
+  color-scheme: dark;
+  background: color-mix(in srgb, var(--color-text), transparent 88%);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.select:hover {
+  background: color-mix(in srgb, var(--color-text), transparent 82%);
+}
+
+.select:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.select option {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+/* « Effacer » : sur la même ligne que les filtres, à droite ; garde sa place même caché */
+.library_clear {
+  margin-left: auto;
+  height: var(--control-height);
+  padding: 0 0.25rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: inherit;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.library_clear.is-hidden {
+  visibility: hidden;
+}
+
+.library_clear:hover,
+.library_clear:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Bouton de l'état « aucun résultat » */
+.chip {
+  padding: 0.25rem var(--space-m);
+  font: inherit;
+  font-size: 0.8125rem;
+  color: inherit;
+  background: transparent;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--color-accent);
+}
+
+.chip:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Grille : autant de colonnes que la place le permet, cartes de même hauteur sur une ligne */
+.library_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 34rem), 1fr));
+  gap: var(--space-l) var(--space-m);
+  padding: var(--space-l) 0;
+}
+
+.library_cell {
+  display: flex;
+}
+
+/* Dans la bibliothèque la carte remplit sa colonne et s'adapte à son texte (jamais coupé) */
+.library_cell .card {
+  width: 100%;
+  max-width: 48rem;
+}
+
+.library_empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-m);
+  padding: var(--space-l) 0;
+  text-align: center;
+}
+
+.library_empty p {
+  margin: 0;
+}
+
+@media (max-width: 40rem) {
+  /* Sur téléphone la barre est trop haute pour rester collée en haut */
+  .library_toolbar {
+    position: static;
+  }
+
+  .library_clear {
+    margin-left: 0;
+  }
+}
+
+
+/* ---------- Jeu : emplacement de la carte, barre de boutons ---------- */
+
+.game {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-s);
+}
+
+/* Avant le premier tirage : même taille que la carte, pour qu'elle n'ait pas à se décaler */
+.card_back {
+  width: min(100%, 40rem);
+  min-height: 22rem;
+  display: grid;
+  place-items: center;
+  padding: var(--space-l);
+  text-align: center;
+  border: 2px dashed color-mix(in srgb, var(--color-text), transparent 65%);
+  border-radius: 1.5rem;
+}
+
+.card_back p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-l);
+  opacity: 0.7;
+}
+
+a.btn {
+  text-decoration: none;
+}
+
+.buttons {
+  margin-bottom: var(--space-l);
+}
+
+/* Téléphone et petite tablette : barre de boutons fixée en bas (à portée du pouce, ne bouge jamais) */
+@media (max-width: 48rem) {
+  body:has(.buttons) {
+    padding-bottom: 8rem;
+  }
+
+  .buttons {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 4;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-s);
+    margin: 0;
+    padding: var(--space-s) var(--page-margin);
+    background: var(--color-background);
+    border-top: 1px solid color-mix(in srgb, var(--color-text), transparent 85%);
+  }
+
+  .buttons .btn {
+    padding: var(--space-s) var(--space-m);
+    font-size: 1.125rem;
+  }
+
+  .buttons #round {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 30rem) {
+  .round_label {
+    display: none;
+  }
+}
+
+
+/* ---------- Pages de texte (règles, carte, QR, 404) ---------- */
+
+.page {
+  width: min(100%, var(--page-max));
+  padding: var(--space-m) 0 var(--space-l);
+}
+
+.prose {
+  max-width: 44rem;
+  line-height: 1.6;
+}
+
+.prose > * + * {
+  margin-top: var(--space-m);
+}
+
+.prose h2 {
+  margin-top: var(--space-l);
+  margin-bottom: 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin-bottom: 0;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+.prose li + li {
+  margin-top: 0.35rem;
+}
+
+.prose a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.prose a:hover,
+.prose a:focus-visible {
+  color: var(--color-accent);
+}
+
+.prose a.btn {
+  color: var(--color-background);
+}
+
+.page_title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  line-height: 1.1;
+}
+
+.lead {
+  font-size: 1.125rem;
+}
+
+.rules_note {
+  font-size: var(--font-size-s);
+  opacity: 0.75;
+}
+
+.rules_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-s);
+}
+
+.rules_table th,
+.rules_table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text), transparent 80%);
+}
+
+.rules_table thead th {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.rules_table tbody th {
+  white-space: nowrap;
+}
+
+.rules_cta {
+  display: inline-flex;
+}
+
+/* Page d'une carte */
+.backlink {
+  display: inline-block;
+  font-size: var(--font-size-s);
+}
+
+.eyebrow {
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.prose .card {
+  margin-top: var(--space-s);
+}
+
+.sources {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sources_tag {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-s) var(--space-l);
+  margin-top: var(--space-l);
+  padding-top: var(--space-m);
+  border-top: 1px solid color-mix(in srgb, var(--color-text), transparent 85%);
+  font-size: var(--font-size-s);
+}
+
+.pager_next {
+  margin-left: auto;
+  text-align: right;
+}
+
+
+/* ---------- QR codes ---------- */
+
+.qr_field {
+  display: block;
+  margin-top: var(--space-l);
+  font-size: var(--font-size-s);
+}
+
+.qr_input {
+  width: min(100%, 30rem);
+  height: var(--control-height);
+  padding: 0 var(--space-m);
+  font: inherit;
+  font-size: var(--font-size-s);
+  color: inherit;
+  background: color-mix(in srgb, var(--color-text), transparent 88%);
+  border: 0;
+  border-radius: 999px;
+}
+
+.qr_input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.qr_hint {
+  min-height: 3em;
+  font-size: var(--font-size-s);
+}
+
+.qr_grid {
+  list-style: none;
+  margin: var(--space-l) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--space-l) var(--space-m);
+}
+
+.qr_item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+/* Un QR code doit être sombre sur fond clair pour être lu */
+.qr_code {
+  aspect-ratio: 1;
+  padding: 0.25rem;
+  color: #000;
+  background: #fff;
+  border-radius: 0.75rem;
+}
+
+.qr_code svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qr_caption {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+
+/* ---------- Pied de page ---------- */
+
+.footer {
+  width: min(100%, var(--page-max));
+  margin-top: auto;
+  padding: var(--space-m) 0 var(--space-l);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-m) var(--space-l);
+  border-top: 1px solid color-mix(in srgb, var(--color-text), transparent 85%);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.footer_note {
+  max-width: 44rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.footer_nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-m);
+}
+
+.footer_nav a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.footer_nav a:hover,
+.footer_nav a:focus-visible {
+  color: var(--color-accent);
+}
+
+
+/* ---------- Petits écrans : header serré ---------- */
+
+.header_nav {
+  flex-wrap: nowrap;
+}
+
+.header_brand,
+.header_link {
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .header {
+    gap: var(--space-s);
+  }
+
+  .header_brand {
+    font-size: 1rem;
+  }
+
+  .header_link {
+    padding-inline: 0.55rem;
+  }
+}
+
+
+/* ---------- Impression (page des QR codes) ---------- */
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  body {
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  .header,
+  .footer,
+  .buttons,
+  .no-print {
+    display: none !important;
+  }
+
+  .qr_grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8mm;
+    margin-top: 0;
+  }
+
+  .qr_item {
+    break-inside: avoid;
+  }
+
+  .qr_code {
+    border: 1px solid #bbb;
+  }
+}
+
+
+/* ---------- Page Play : tient dans l'écran, sans défilement ---------- */
+
+body:has(.game) {
+  height: 100dvh;
+  overflow: hidden;
+  padding-bottom: var(--space-s);
+}
+
+body:has(.game) .header {
+  margin-bottom: 0;
+}
+
+/* La zone de jeu prend toute la place libre ; la carte s'y adapte (jamais plus haute que --card-height) */
+body:has(.game) .game {
+  --card-height: 22rem;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-m) 0 0;
+}
+
+.game .card,
+.game .card_back {
+  height: min(100%, var(--card-height));
+  min-height: 0;
+}
+
+body:has(.game) .buttons {
+  margin-bottom: var(--space-s);
+}
+
+/* Pied de page réduit à une ligne (le texte complet est sur les autres pages) */
+body:has(.game) .footer {
+  margin-top: 0;
+  padding: var(--space-s) 0 0;
+}
+
+body:has(.game) .footer_more {
+  display: none;
+}
+
+/* Téléphone : barre de boutons fixe en bas, la carte reçoit plus de hauteur et un peu moins de marges */
+@media (max-width: 48rem) {
+  body:has(.game) {
+    padding-bottom: 5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  body:has(.game) .game {
+    --card-height: 30rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .game .card {
+    padding: var(--space-s);
+    gap: var(--space-s);
+  }
+
+  .game .card_interne {
+    padding: var(--space-m);
+    gap: var(--space-s);
+  }
+
+  .game .card_title {
+    padding: 0;
+    font-size: 1.25rem;
+  }
+
+  .game .card_score {
+    font-size: 1.25rem;
+  }
+
+  .game .card_text {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .game .card_infos {
+    padding-top: var(--space-s);
+  }
+
+  .game .card_year {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 21rem) {
+  .buttons .btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+/* Écran très bas (téléphone en paysage) : on laisse la page défiler plutôt que de couper le jeu */
+@media (max-height: 30rem) {
+  body:has(.game) {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  body:has(.game) .game {
+    --card-height: 22rem;
+    flex: none;
+  }
+
+  .game .card,
+  .game .card_back {
+    height: auto;
+    min-height: 22rem;
+  }
+}
+
+
+/* ---------- Formulaire « Add an event » ---------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.form > h2 {
+  margin-top: var(--space-l);
+}
+
+.form > p {
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field > label,
+.field > legend,
+.more label {
+  font-size: var(--font-size-s);
+  font-weight: 600;
+}
+
+.field > legend {
+  padding: 0;
+  margin-bottom: 0.35rem;
+}
+
+.field_count {
+  margin-left: 0.5rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+}
+
+.field_hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  opacity: 0.75;
+}
+
+/* Réserve la place du message d'erreur : le formulaire ne bouge pas quand il apparaît */
+.field_error {
+  min-height: 1.3em;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #ff9b8f;
+}
+
+.field_row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-m);
+}
+
+.input {
+  width: 100%;
+  min-height: var(--control-height);
+  padding: 0.35rem var(--space-m);
+  font: inherit;
+  font-size: var(--font-size-m);
+  color: inherit;
+  color-scheme: dark;
+  background: color-mix(in srgb, var(--color-text), transparent 90%);
+  border: 2px solid transparent;
+  border-radius: 999px;
+}
+
+.textarea {
+  padding: 0.6rem var(--space-m);
+  line-height: 1.5;
+  border-radius: 1.25rem;
+  resize: vertical;
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.input[aria-invalid="true"] {
+  border-color: #ff9b8f;
+}
+
+select.input option {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.choice_row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.25rem, 1fr));
+  gap: var(--space-s);
+}
+
+/* Choix en cartes : la case ronde est cachée, la carte choisie ressort */
+.choice {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 0.6rem var(--space-m);
+  background: color-mix(in srgb, var(--color-text), transparent 92%);
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.choice input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.choice span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: var(--font-size-s);
+}
+
+.choice small {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.choice:has(input:checked) {
+  background: color-mix(in srgb, var(--color-text), transparent 82%);
+  border-color: var(--color-text);
+}
+
+.choice:has(input:focus-visible) {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.score_out {
+  margin: 0;
+  font-size: var(--font-size-s);
+}
+
+.score_out strong {
+  font-family: var(--font-display);
+  font-size: var(--font-size-l);
+  font-weight: 400;
+}
+
+.more {
+  padding: var(--space-s) 0;
+}
+
+.more summary {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  cursor: pointer;
+  font-size: var(--font-size-s);
+}
+
+.more summary:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.more[open] summary {
+  margin-bottom: var(--space-m);
+}
+
+.more .field + .field {
+  margin-top: var(--space-m);
+}
+
+#preview .card {
+  margin-top: 0;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-s);
+  min-height: 2.75rem;
+  padding: 0.35rem 0;
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}
+
+.check input {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0;
+  accent-color: var(--color-positive);
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form_status {
+  min-height: 1.5em;
+  font-size: var(--font-size-s);
+}
+
+.form_status_error {
+  color: #ff9b8f;
+}
+
+.thanks {
+  margin-top: var(--space-l);
+  padding: var(--space-l);
+  background: color-mix(in srgb, var(--color-text), transparent 92%);
+  border-radius: 1.25rem;
+}
+
+.thanks:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.thanks h2 {
+  margin-top: 0;
+}
+
+/* Lien « Add an event » à côté du titre de la bibliothèque */
+.library_head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s) var(--space-m);
+}
+
+.library_add {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  padding: 0 var(--space-m);
+  font-size: 0.8125rem;
+  color: inherit;
+  text-decoration: none;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+.library_add:hover {
+  border-color: var(--color-accent);
+}
+
+.library_add:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
 }

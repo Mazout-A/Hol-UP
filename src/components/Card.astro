@@ -1,0 +1,37 @@
+---
+// Carte statique (même structure et mêmes classes que la carte du jeu).
+const { card, category } = Astro.props;
+
+const sentiment = card.score > 0 ? "positive" : "negative";
+const sign = card.score > 0 ? "+" : "";
+const host = new URL(card.source.url).hostname.replace("www.", "");
+---
+
+<article class="card" data-sentiment={sentiment}>
+    <div class="card_interne">
+        <h2 class="card_title">{card.title.en}</h2>
+
+        <div class="card_effet">
+            <p class="card_score">
+                <span>{sign}{card.score}</span>
+                <span>{category.label.en}</span>
+            </p>
+        </div>
+
+        <p class="card_text">{card.text.en}</p>
+
+        <div class="card_infos">
+            <p class="card_year">{card.year}</p>
+
+            <a
+                class="card_source"
+                href={card.source.url}
+                title={card.source.name}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {host}
+            </a>
+        </div>
+    </div>
+</article>

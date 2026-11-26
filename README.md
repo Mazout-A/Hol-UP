@@ -1,46 +1,49 @@
-# Astro Starter Kit: Basics
+# English Game
 
-```sh
-npm create astro@latest -- --template basics
-```
+Site compagnon d'un jeu de cartes papier : on tire des événements financiers réels (bourse, immobilier,
+épargne), avec leur score, leur année et leur source.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Construit avec [Astro](https://astro.build) (HTML, CSS et JavaScript, sans framework).
 
-## 🚀 Project Structure
+## Commandes
 
-Inside of your Astro project, you'll see the following folders and files:
+| Commande | Action |
+|---|---|
+| `npm install` | Installe les dépendances |
+| `npm run dev` | Serveur local sur `http://localhost:4321` |
+| `npm run build` | Construit le site dans `dist/` (et le mode hors ligne) |
+| `npm run preview` | Sert le site construit (permet de tester le hors ligne) |
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## Les pages
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+| Adresse | Contenu |
+|---|---|
+| `/` | **Play** : 6 manches, une carte tirée au hasard par manche (la partie est sauvegardée) |
+| `/library` | Toutes les cartes, avec filtres et tri |
+| `/cards/N/` | La page d'une carte avec ses sources (c'est l'adresse des QR codes) |
+| `/rules` | Les règles |
+| `/add-event` | Formulaire pour proposer un événement (voir ci-dessous) |
+| `/qr` | Les QR codes à imprimer (un par carte) |
 
-## 🧞 Commands
+## Où modifier quoi
 
-All commands are run from the root of the project, from a terminal:
+- **Les cartes** : `src/data/cards.json` (une carte = un objet ; `id` unique, `score` de −4 à +4).
+- **Les couleurs, tailles, marges** : `src/styles/token.css`.
+- **Le design** : `src/styles/style.css`.
+- **Le jeu** (tirage, sauvegarde) : `src/scripts/draw.js`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Le mode hors ligne
 
-## 👀 Want to learn more?
+Après `npm run build`, un *service worker* (`dist/sw.js`, généré à partir de `src/sw.template.js` par
+`astro.config.mjs`) met tout le site en cache : il fonctionne sans internet après la première visite et
+peut s'installer sur l'écran d'accueil d'un téléphone.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## QR codes
+
+Ouvre `/qr` sur le site **en ligne**, vérifie l'adresse publique indiquée, puis imprime la page :
+chaque code ouvre la page de sa carte.
+
+## Proposer un événement (`/add-event`)
+
+Le formulaire crée une *Pull Request* GitHub que tu valides d'un clic : rien n'est publié sans relecture.
+Mise en route (GitHub, Vercel, jeton) : [`docs/add-event.md`](docs/add-event.md).

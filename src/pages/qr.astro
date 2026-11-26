@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import data from "../data/cards.json";
+---
+
+<Layout
+    title="QR codes – English Game"
+    description="Printable QR codes for the physical cards of English Game."
+    noindex
+>
+    <main class="page">
+        <div class="prose qr_intro no-print">
+            <h1 class="page_title">QR codes</h1>
+            <p class="lead">
+                One QR code per card. Print this page and stick each code on the matching
+                physical card: scanning it opens the card page, with its sources.
+            </p>
+
+            <label class="qr_field" for="site-url">Public address of the site</label>
+            <input
+                class="qr_input"
+                id="site-url"
+                type="url"
+                inputmode="url"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="https://your-game.vercel.app"
+            />
+            <p class="qr_hint" id="url-hint" role="status"></p>
+
+            <p>
+                <button class="btn btn_draw qr_print" type="button" id="print">Print</button>
+            </p>
+        </div>
+
+        <ul class="qr_grid" id="qr-grid">
+            {
+                data.cards.map((card) => (
+                    <li class="qr_item" data-id={card.id}>
+                        <div class="qr_code" aria-hidden="true"></div>
+                        <p class="qr_caption">
+                            <strong>Card {card.id}</strong>
+                            <span>{card.title.en}</span>
+                        </p>
+                    </li>
+                ))
+            }
+        </ul>
+    </main>
+</Layout>
+
+<script>
+    import qrcode from "qrcode-generator";
+
+    const input = document.getElementById("site-url") as HTMLInputElement;
+    const hint = document.getElementById("url-hint") as HTMLElement;
+    const printBtn = document.getElementById("print") as HTMLButtonElement;
+    const items = document.querySelectorAll<HTMLElement>(".qr_item");
+    const STORAGE_KEY = "english-game:site-url";
+    ////////////////////////////////////////////
+
+
+    const isLocal = (host: string) =>
+        /^(localhost|127\.|0\.0\.0\.0|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host) ||
+        host.endsWith(".local");
+
+    // Adresse du site sans « / » final, ou null si elle n'est pas valable
+    function cleanBase(value: string): string | null {
+        try {
+            const url = new URL(value.trim());
+            if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+            return url.origin + url.pathname.replace(/\/+$/, "");
+        } catch {
+            return null;
+        }
+    }
+
+    function render() {
+        const base = cleanBase(input.value);
+
+        if (!base) {
+            hint.textContent = "Enter a full address, for example https://your-game.vercel.app";
+            printBtn.disabled = true;
+            items.forEach((item) => (item.querySelector(".qr_code")!.innerHTML = ""));
+            return;
+        }
+
+        const local = isLocal(new URL(base).hostname);
+        hint.textContent = local
+            ? "This is a local address: the printed codes would only work on this computer. Enter the public address of your site before printing."
+            : "";
+        printBtn.disabled = false;
+
+        items.forEach((item) => {
+            const qr = qrcode(0, "M");
+            qr.addData(`${base}/cards/${item.dataset.id}/`);
+            qr.make();
+            item.querySelector(".qr_code")!.innerHTML = qr.createSvgTag({
+                scalable: true,
+                margin: 2,
+            });
+        });
+
+        try {
+            localStorage.setItem(STORAGE_KEY, base);
+        } catch {
+            /* stockage indisponible : sans importance */
+        }
+    }
+
+    let saved = "";
+    try {
+        saved = localStorage.getItem(STORAGE_KEY) ?? "";
+    } catch {
+        /* stockage indisponible */
+    }
+    // Par défaut : l'adresse du site ouvert ; on mémorise celle que tu corriges
+    input.value = saved || window.location.origin;
+
+    input.addEventListener("input", render);
+    printBtn.addEventListener("click", () => window.print());
+    render();
+</script>

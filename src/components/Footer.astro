@@ -1,0 +1,29 @@
+---
+import data from "../data/cards.json";
+
+// Date de la dernière vérification des sources (champ meta.lastChecked du JSON)
+const checked = new Date(`${data.meta.lastChecked}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+});
+---
+
+<footer class="footer">
+    <p class="footer_note">
+        <strong>Not financial advice.</strong>{" "}
+        <span class="footer_more">
+            English Game is an educational card game. The events on the cards are real, but nothing
+            on this site is a recommendation to buy, sell or invest. Figures come from the sources
+            linked on each card (last checked {checked}).
+        </span>
+    </p>
+
+    <nav class="footer_nav" aria-label="Footer">
+        <a href="/rules">Rules</a>
+        <a href="/library">Library</a>
+        <a href="/add-event">Add an event</a>
+        <a href="/qr">QR codes</a>
+    </nav>
+</footer>

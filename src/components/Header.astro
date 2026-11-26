@@ -1,0 +1,31 @@
+---
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+// `match` : chemins qui rendent le lien « actif » (les pages de cartes dépendent de la bibliothèque)
+const links = [
+    { href: "/", label: "Play", match: ["/"] },
+    { href: "/library", label: "Library", match: ["/library", "/cards"] },
+    { href: "/rules", label: "Rules", match: ["/rules"] },
+];
+
+const isActive = (match: string[]) =>
+    match.some((m) => (m === "/" ? path === "/" : path === m || path.startsWith(m + "/")));
+---
+
+<header class="header">
+    <a class="header_brand" href="/">English Game</a>
+
+    <nav class="header_nav" aria-label="Main navigation">
+        {
+            links.map((link) => (
+                <a
+                    class="header_link"
+                    href={link.href}
+                    aria-current={isActive(link.match) ? "page" : undefined}
+                >
+                    {link.label}
+                </a>
+            ))
+        }
+    </nav>
+</header>

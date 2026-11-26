@@ -1,0 +1,207 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import data from "../data/cards.json";
+
+const baseCategory = (key: string) => key.split("_")[0];
+
+// Catégories (stocks, real estate, savings) sans le suffixe positif / négatif
+const categories = [
+    ...new Map(
+        Object.entries(data.categories).map(([key, value]) => [
+            baseCategory(key),
+            value.label.en,
+        ]),
+    ),
+].map(([key, label]) => ({
+    key,
+    label,
+    count: data.cards.filter((c) => baseCategory(c.category) === key).length,
+}));
+
+const sentiments = [
+    { key: "positive", label: "Gains", count: data.cards.filter((c) => c.score > 0).length },
+    { key: "negative", label: "Losses", count: data.cards.filter((c) => c.score < 0).length },
+];
+
+const sorts = [
+    { key: "default", label: "Original order" },
+    { key: "score-desc", label: "Highest score" },
+    { key: "score-asc", label: "Lowest score" },
+    { key: "year-desc", label: "Newest first" },
+    { key: "year-asc", label: "Oldest first" },
+];
+---
+
+<Layout
+    title="Library – English Game"
+    description="Browse all the cards of English Game: real events that moved stocks, real estate and savings."
+>
+    <section class="library">
+        <div class="library_head">
+            <h1 class="library_title">Library</h1>
+            <a class="library_add" href="/add-event">Add an event</a>
+        </div>
+
+        <div class="library_toolbar">
+            <div class="segmented" role="group" aria-label="Filter by category">
+                <button class="segment" type="button" data-group="category" data-value="all" aria-pressed="true">
+                    <span>All</span>
+                    <span class="segment_count">{data.cards.length}</span>
+                </button>
+                {
+                    categories.map((c) => (
+                        <button class="segment" type="button" data-group="category" data-value={c.key} aria-pressed="false">
+                            <span>{c.label}</span>
+                            <span class="segment_count">{c.count}</span>
+                        </button>
+                    ))
+                }
+            </div>
+
+            <div class="segmented" role="group" aria-label="Filter by result">
+                <button class="segment" type="button" data-group="sentiment" data-value="all" aria-pressed="true">
+                    <span>All</span>
+                    <span class="segment_count">{data.cards.length}</span>
+                </button>
+                {
+                    sentiments.map((s) => (
+                        <button class="segment" type="button" data-group="sentiment" data-value={s.key} data-tone={s.key} aria-pressed="false">
+                            <span>{s.label}</span>
+                            <span class="segment_count">{s.count}</span>
+                        </button>
+                    ))
+                }
+            </div>
+
+            <span class="select_wrap">
+                <select class="select" id="sort" aria-label="Sort cards">
+                    {sorts.map((s) => <option value={s.key}>{s.label}</option>)}
+                </select>
+            </span>
+
+            <button class="library_clear is-hidden" type="button" id="clear-filters">
+                Clear filters
+            </button>
+
+            <p class="sr-only" id="count" aria-live="polite"></p>
+        </div>
+
+        <div class="library_grid" id="grid">
+            {
+                data.cards.map((card, index) => (
+                    <div
+                        class="library_cell"
+                        data-index={index}
+                        data-category={baseCategory(card.category)}
+                        data-sentiment={card.score > 0 ? "positive" : "negative"}
+                        data-score={card.score}
+                        data-year={parseInt(card.year)}
+                    >
+                        <Card
+                            card={card}
+                            category={data.categories[card.category]}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="library_empty" id="empty" hidden>
+            <p>No card matches these filters.</p>
+            <button class="chip" type="button" id="reset-filters">Reset filters</button>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const cells = Array.from(
+        document.querySelectorAll<HTMLElement>(".library_cell"),
+    );
+    const segments = document.querySelectorAll<HTMLButtonElement>(".segment");
+    const sortEl = document.getElementById("sort") as HTMLSelectElement;
+    const countEl = document.getElementById("count") as HTMLElement;
+    const emptyEl = document.getElementById("empty") as HTMLElement;
+    const clearEl = document.getElementById("clear-filters") as HTMLElement;
+    ////////////////////////////////////////////
+
+
+    type Filters = { category: string; sentiment: string };
+    const filters: Filters = { category: "all", sentiment: "all" };
+
+    const num = (cell: HTMLElement, key: string) => Number(cell.dataset[key]);
+
+    const sorters: Record<string, (a: HTMLElement, b: HTMLElement) => number> = {
+        "default": (a, b) => num(a, "index") - num(b, "index"),
+        "score-desc": (a, b) => num(b, "score") - num(a, "score") || num(a, "index") - num(b, "index"),
+        "score-asc": (a, b) => num(a, "score") - num(b, "score") || num(a, "index") - num(b, "index"),
+        "year-desc": (a, b) => num(b, "year") - num(a, "year") || num(a, "index") - num(b, "index"),
+        "year-asc": (a, b) => num(a, "year") - num(b, "year") || num(a, "index") - num(b, "index"),
+    };
+
+    const matches = (cell: HTMLElement, f: Filters) =>
+        (f.category === "all" || cell.dataset.category === f.category) &&
+        (f.sentiment === "all" || cell.dataset.sentiment === f.sentiment);
+
+    function apply() {
+        let shown = 0;
+        cells.forEach((cell) => {
+            const match = matches(cell, filters);
+            cell.hidden = !match;
+            if (match) shown++;
+        });
+
+        [...cells]
+            .sort(sorters[sortEl.value] ?? sorters["default"])
+            .forEach((cell, i) => (cell.style.order = String(i)));
+
+        // Sur chaque option : nombre de cartes obtenues si on la choisit (avec l'autre filtre actif)
+        segments.forEach((segment) => {
+            const group = segment.dataset.group as keyof Filters;
+            const value = segment.dataset.value ?? "all";
+            const count = cells.filter((cell) =>
+                matches(cell, { ...filters, [group]: value }),
+            ).length;
+            segment.querySelector(".segment_count")!.textContent = String(count);
+            // Une option qui ne donne aucune carte n'est plus cliquable (sauf si elle est déjà choisie)
+            const pressed = segment.getAttribute("aria-pressed") === "true";
+            segment.disabled = count === 0 && !pressed;
+        });
+
+        // Annonce pour les lecteurs d'écran uniquement (non affichée)
+        countEl.textContent = `${shown} cards shown`;
+        emptyEl.hidden = shown > 0;
+        clearEl.classList.toggle("is-hidden", filters.category === "all" && filters.sentiment === "all");
+    }
+
+    function setFilter(group: keyof Filters, value: string) {
+        filters[group] = value;
+        segments.forEach((segment) => {
+            if (segment.dataset.group === group) {
+                segment.setAttribute("aria-pressed", String(segment.dataset.value === value));
+            }
+        });
+    }
+
+    segments.forEach((segment) => {
+        segment.addEventListener("click", () => {
+            setFilter(segment.dataset.group as keyof Filters, segment.dataset.value ?? "all");
+            apply();
+        });
+    });
+
+    sortEl.addEventListener("change", apply);
+
+    function resetFilters() {
+        setFilter("category", "all");
+        setFilter("sentiment", "all");
+        apply();
+        // Le bouton cliqué vient de disparaître : on garde le focus clavier dans les filtres
+        segments[0].focus();
+    }
+
+    document.getElementById("reset-filters")!.addEventListener("click", resetFilters);
+    clearEl.addEventListener("click", resetFilters);
+
+    apply();
+</script>

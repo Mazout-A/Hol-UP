@@ -1,0 +1,103 @@
+---
+import Layout from "../layouts/Layout.astro";
+import data from "../data/cards.json";
+
+const rounds = 6;
+
+const scores = [
+    { score: "+4 / +3", text: "A very strong rise or rebound." },
+    { score: "+2 / +1", text: "A moderate or modest gain." },
+    { score: "-1 / -2", text: "A modest or moderate fall." },
+    { score: "-3 / -4", text: "A severe fall or crash." },
+];
+
+const categories = [
+    { name: "Stocks", text: "Shares and stock markets: crashes, bubbles and rebounds." },
+    { name: "Real estate", text: "Property prices: booms, corrections and crises." },
+    { name: "Savings", text: "Safe places for money: bonds, euro funds, savings accounts." },
+];
+---
+
+<Layout
+    title="Rules – English Game"
+    description="How to play English Game: draw cards, read the event, and discover what happened to stocks, real estate and savings."
+>
+    <main class="page">
+        <div class="prose">
+            <h1 class="page_title">Rules</h1>
+            <p class="lead">
+                English Game is a card game about real events that moved the stock market,
+                real estate and savings. This site is its companion: it draws the cards for you
+                and lets you check every fact.
+            </p>
+
+            <h2>How a game works</h2>
+            <ol>
+                <li>Press <strong>Draw a card</strong>. A card is picked at random.</li>
+                <li>Read the event, its score and its year. Open the source to check the facts.</li>
+                <li>
+                    Repeat until you have played <strong>{rounds} rounds</strong>. A card never
+                    comes back twice in the same game.
+                </li>
+                <li>After round {rounds}, press <strong>New game</strong> to shuffle the deck again.</li>
+            </ol>
+            <p>
+                Your game is saved on your device. You can close the page and come back later:
+                the game continues where you left it.
+            </p>
+
+            <h2>Reading a card</h2>
+            <ul>
+                <li><strong>Title and year</strong>: the event and when it happened.</li>
+                <li><strong>Category</strong>: stocks, real estate or savings.</li>
+                <li><strong>Score</strong>: from −4 to +4. Green is a gain, red is a loss.</li>
+                <li><strong>Source</strong>: the article or report the figures come from.</li>
+            </ul>
+
+            <h2>What the scores mean</h2>
+            <p>
+                The score shows how strongly the event moved its market, in the direction shown.
+            </p>
+            <table class="rules_table">
+                <caption class="sr-only">Meaning of the scores</caption>
+                <thead>
+                    <tr><th scope="col">Score</th><th scope="col">Meaning</th></tr>
+                </thead>
+                <tbody>
+                    {scores.map((s) => <tr><th scope="row">{s.score}</th><td>{s.text}</td></tr>)}
+                </tbody>
+            </table>
+
+            <h2>The three categories</h2>
+            <ul>
+                {categories.map((c) => <li><strong>{c.name}</strong>: {c.text}</li>)}
+            </ul>
+
+            <h2>Physical cards and QR codes</h2>
+            <p>
+                Each physical card carries a QR code. Scan it with your phone to open the page of
+                that card, with its sources. You can also browse all {data.cards.length} cards in the
+                <a href="/library">Library</a>.
+            </p>
+
+            <h2>Add your own event</h2>
+            <p>
+                Know a real financial event from another country? Suggest it with the
+                <a href="/add-event">Add an event</a> form: a name, a short description, its impact, its
+                dates and a reliable source. Each proposal is checked by hand before it becomes a card.
+            </p>
+
+            <h2>Playing without internet</h2>
+            <p>
+                After your first visit, the site works offline. On a phone you can add it to your
+                home screen from the browser menu and open it like an app.
+            </p>
+
+            <p class="rules_note">
+                This is an educational game, not financial advice.
+            </p>
+
+            <p><a class="btn btn_draw rules_cta" href="/">Start a game</a></p>
+        </div>
+    </main>
+</Layout>

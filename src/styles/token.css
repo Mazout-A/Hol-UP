@@ -1,26 +1,47 @@
 :root {
-  /* Couleurs : à remplacer par celles du créa */
-  --bg: #1a2238;
-  --surface: #fbf8f1;
-  --surface-2: pink;
-  --text: #1a2238;
-  --accent: #d9482b;
-  --positive: #2f9e6e;
-  --negative: #d64545;
+  /* Couleurs de la page */
+  --color-background: #1a2238;
+  --color-text: #fbf8f1;
+  --color-accent: #d9482b;
+
+  /* Couleurs des cartes */
+  --color-card-background: #fbf8f1;
+  --color-card-inner-background: pink;
+  --color-card-text: #1a2238;
+
+  /* Couleurs d'état */
+  --color-positive: #2f9e6e;
+  --color-negative: #d64545;
+  /* Versions plus foncées pour du texte sur fond rose (contraste >= 4,5:1) */
+  --color-positive-text: #17623f;
+  --color-negative-text: #a32a2a;
 
   /* Polices */
   --font-display: 'Dingdong', 'Switzer', system-ui, sans-serif;
   --font-body: 'Switzer', system-ui, sans-serif;
 
   /* Tailles de texte */
-  --text-s: 0.875rem;
-  --text-m: 1rem;
-  --text-l: 1.5rem;
-  --text-year: 3.5rem;
+  --font-size-s: 0.875rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-year: 3.5rem;
 
   /* Espaces et formes */
   --space-s: 0.5rem;
   --space-m: 1rem;
   --space-l: 2rem;
   --radius: 1rem;
+  --header-height: 3rem;
+  --page-margin: clamp(1.25rem, 5vw, 6rem); /* marge gauche / droite de toutes les pages */
+  --page-max: 84rem; /* largeur maximale du contenu */
+  --control-height: 2rem; /* hauteur des boutons, filtres et liens du header */
+}
+
+/* Écrans tactiles (téléphone, tablette) : cibles plus grandes */
+@media (pointer: coarse) {
+  :root {
+    --control-height: 2.75rem;
+    --header-height: 3.75rem;
+  }
 }

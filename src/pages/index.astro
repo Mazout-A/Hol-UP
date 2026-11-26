@@ -3,58 +3,49 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="English Game">
-    <article id="card" class="card" hidden>
-        <div class="card_interne">
-            <h2 id="title" class="card_title"></h2>
-
-            <div class="card_effet">
-                <span id="category-icon"></span>
-                <span id="trend-icon"></span>
-                <p class="card_score">
-                    <i data-lucide="gauge"></i>
-                    <span id="score"></span>
-                    <span id="score-label"></span>
-                </p>
-            </div>
-
-            <p id="text" class="card_text"></p>
-
-            <div class="card_infos">
-                <p id="year" class="card_year"></p>
-
-                <p class="card_date">
-                    <i data-lucide="calendar"></i> <span id="date"></span>
-                </p>
-
-                <a
-                    id="source"
-                    class="card_source"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Source
-                </a>
-
-                <iframe
-                    id="video"
-                    class="card_video"
-                    hidden
-                    title="Video"
-                    allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
-            </div>
+    <main class="game">
+        <!-- Avant le premier tirage : la place de la carte est marquée -->
+        <div id="card-back" class="card_back">
+            <p>Draw your first card to start</p>
         </div>
-    </article>
+
+        <article id="card" class="card" aria-live="polite" hidden>
+            <div class="card_interne">
+                <h2 id="title" class="card_title"></h2>
+
+                <div class="card_effet">
+                    <p class="card_score">
+                        <span id="score"></span>
+                        <span id="score-label"></span>
+                    </p>
+                </div>
+
+                <p id="text" class="card_text"></p>
+
+                <div class="card_infos">
+                    <p id="year" class="card_year"></p>
+
+                    <a
+                        id="source"
+                        class="card_source"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Source
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
 
     <div class="buttons">
         <button id="draw" class="btn btn_draw">
-            <i data-lucide="trending-up"></i> Draw a card
+            Draw a card
         </button>
-        <p id="round"></p>
+        <p id="round" aria-live="polite"></p>
         <button id="reset" class="btn btn_reset" hidden>
-            <i data-lucide="rotate-ccw"></i> Reset
+            New game
         </button>
     </div>
 </Layout>

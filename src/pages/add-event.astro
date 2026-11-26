@@ -1,0 +1,392 @@
+---
+import Layout from "../layouts/Layout.astro";
+import data from "../data/cards.json";
+import { LIMITS, REACH, DIRECTIONS, baseCategory } from "../lib/events.js";
+
+// Catégories proposées = celles de cards.json (sans le suffixe positif / négatif)
+const categories = [
+    ...new Map(
+        Object.entries(data.categories).map(([key, value]) => [baseCategory(key), value.label.en]),
+    ),
+].map(([key, label]) => ({ key, label }));
+
+const thisYear = new Date().getFullYear();
+
+// Données données au script du navigateur (aide en direct ; le serveur revérifie tout)
+const formData = {
+    categories: categories.map((c) => c.key),
+    labels: Object.fromEntries(categories.map((c) => [c.key, c.label])),
+    titles: data.cards.map((c) => c.title.en),
+};
+---
+
+<Layout
+    title="Add an event – English Game"
+    description="Suggest a real financial event for English Game: a name, a short description, its impact, its dates and a reliable source."
+>
+    <main class="page">
+        <div class="prose">
+            <h1 class="page_title">Add an event</h1>
+            <p class="lead">
+                Do you know a real financial event that should be a card, in any country? Send it
+                here. Every proposal is checked by hand before it is published.
+            </p>
+
+            <form id="event-form" class="form" novalidate>
+                <h2>The event</h2>
+
+                <div class="field">
+                    <label for="title">Name <span class="field_count" id="title-count"></span></label>
+                    <input class="input" id="title" name="title" type="text" maxlength={LIMITS.titleMax + 20} autocomplete="off" aria-describedby="title-hint title-error" />
+                    <p class="field_hint" id="title-hint">{LIMITS.titleMin} to {LIMITS.titleMax} characters. Example: Asian financial crisis</p>
+                    <p class="field_error" id="title-error"></p>
+                </div>
+
+                <div class="field">
+                    <label for="text">Description <span class="field_count" id="text-count"></span></label>
+                    <textarea class="input textarea" id="text" name="text" rows="4" maxlength={LIMITS.textMax + 50} aria-describedby="text-hint text-error"></textarea>
+                    <p class="field_hint" id="text-hint">What happened, with one or two key figures. {LIMITS.textMin} to {LIMITS.textMax} characters.</p>
+                    <p class="field_error" id="text-error"></p>
+                </div>
+
+                <div class="field">
+                    <label for="country">Where did it happen?</label>
+                    <input class="input" id="country" name="country" type="text" maxlength={LIMITS.countryMax + 10} autocomplete="off" aria-describedby="country-hint country-error" />
+                    <p class="field_hint" id="country-hint">A country, a region or Worldwide. Example: Thailand</p>
+                    <p class="field_error" id="country-error"></p>
+                </div>
+
+                <h2>Category and impact</h2>
+
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select class="input" id="category" name="category" aria-describedby="category-error">
+                        <option value="">Choose…</option>
+                        {categories.map((c) => <option value={c.key}>{c.label}</option>)}
+                    </select>
+                    <p class="field_error" id="category-error"></p>
+                </div>
+
+                <fieldset class="field choices" aria-describedby="direction-error">
+                    <legend>Was it a gain or a loss?</legend>
+                    <div class="choice_row">
+                        {
+                            DIRECTIONS.map((d) => (
+                                <label class="choice">
+                                    <input type="radio" name="direction" value={d.value} />
+                                    <span><strong>{d.label}</strong><small>{d.hint}</small></span>
+                                </label>
+                            ))
+                        }
+                    </div>
+                    <p class="field_error" id="direction-error"></p>
+                </fieldset>
+
+                <fieldset class="field choices" aria-describedby="reach-hint reach-error">
+                    <legend>How far did it reach?</legend>
+                    <p class="field_hint" id="reach-hint">The wider the impact, the stronger the score. A worldwide event is worth 4.</p>
+                    <div class="choice_row">
+                        {
+                            REACH.map((r) => (
+                                <label class="choice">
+                                    <input type="radio" name="reach" value={r.value} />
+                                    <span><strong>{r.label}</strong><small>{r.hint}</small></span>
+                                </label>
+                            ))
+                        }
+                    </div>
+                    <p class="field_error" id="reach-error"></p>
+                </fieldset>
+
+                <p class="score_out" aria-live="polite">
+                    Score of your card: <strong id="score-out">–</strong>
+                </p>
+
+                <h2>When</h2>
+
+                <div class="field_row">
+                    <div class="field">
+                        <label for="startYear">Start year</label>
+                        <input class="input" id="startYear" name="startYear" type="text" inputmode="numeric" maxlength="4" placeholder={String(thisYear - 20)} autocomplete="off" aria-describedby="startYear-error" />
+                        <p class="field_error" id="startYear-error"></p>
+                    </div>
+                    <div class="field">
+                        <label for="endYear">End year <span class="field_count">(optional)</span></label>
+                        <input class="input" id="endYear" name="endYear" type="text" inputmode="numeric" maxlength="4" autocomplete="off" aria-describedby="endYear-error" />
+                        <p class="field_error" id="endYear-error"></p>
+                    </div>
+                </div>
+
+                <h2>Reliable source</h2>
+                <p class="field_hint">A newspaper, a central bank, a statistics office or a research institute. The link must start with https://</p>
+
+                <div class="field">
+                    <label for="sourceName">Name of the source</label>
+                    <input class="input" id="sourceName" name="sourceName" type="text" autocomplete="off" aria-describedby="sourceName-hint sourceName-error" />
+                    <p class="field_hint" id="sourceName-hint">Example: Federal Reserve History – Asian Financial Crisis</p>
+                    <p class="field_error" id="sourceName-error"></p>
+                </div>
+
+                <div class="field">
+                    <label for="sourceUrl">Link</label>
+                    <input class="input" id="sourceUrl" name="sourceUrl" type="url" inputmode="url" spellcheck="false" autocomplete="off" placeholder="https://" aria-describedby="sourceUrl-error" />
+                    <p class="field_error" id="sourceUrl-error"></p>
+                </div>
+
+                <details class="more">
+                    <summary>Add a second source (optional)</summary>
+                    <div class="field">
+                        <label for="source2Name">Name of the second source</label>
+                        <input class="input" id="source2Name" name="source2Name" type="text" autocomplete="off" aria-describedby="source2Name-error" />
+                        <p class="field_error" id="source2Name-error"></p>
+                    </div>
+                    <div class="field">
+                        <label for="source2Url">Link of the second source</label>
+                        <input class="input" id="source2Url" name="source2Url" type="url" inputmode="url" spellcheck="false" autocomplete="off" placeholder="https://" aria-describedby="source2Url-error" />
+                        <p class="field_error" id="source2Url-error"></p>
+                    </div>
+                </details>
+
+                <h2>Preview</h2>
+                <p class="field_hint">This is how your card will look.</p>
+                <div id="preview"></div>
+
+                <div class="field confirm">
+                    <label class="check">
+                        <input type="checkbox" id="confirm" name="confirm" aria-describedby="confirm-error" />
+                        <span>I checked that the facts above come from the source I give.</span>
+                    </label>
+                    <p class="field_error" id="confirm-error"></p>
+                </div>
+
+                <!-- Piège à robots : invisible pour les humains -->
+                <div class="hp" aria-hidden="true">
+                    <label>Website <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" /></label>
+                </div>
+
+                <p>
+                    <button class="btn btn_draw" type="submit" id="send">Send for review</button>
+                </p>
+                <p class="form_status" id="status" role="status" aria-live="polite"></p>
+            </form>
+
+            <div id="thanks" class="thanks" tabindex="-1" hidden>
+                <h2>Thank you!</h2>
+                <p id="thanks-text">Your event was sent for review. If it is accepted, it will appear in the game within a few minutes.</p>
+                <p>
+                    <button class="btn btn_reset" type="button" id="another">Add another event</button>
+                </p>
+                <p><a href="/library">Browse the library</a></p>
+            </div>
+
+            <script type="application/json" id="form-data" set:html={JSON.stringify(formData)} />
+        </div>
+    </main>
+</Layout>
+
+<script>
+    import { LIMITS, validateEvent, clean, scoreFrom, REACH } from "../lib/events.js";
+
+    const form = document.getElementById("event-form") as HTMLFormElement;
+    const thanks = document.getElementById("thanks") as HTMLElement;
+    const sendBtn = document.getElementById("send") as HTMLButtonElement;
+    const statusEl = document.getElementById("status") as HTMLElement;
+    const previewEl = document.getElementById("preview") as HTMLElement;
+    const scoreOut = document.getElementById("score-out") as HTMLElement;
+    const formData = JSON.parse(document.getElementById("form-data")!.textContent ?? "{}");
+    const FIELDS = ["title", "text", "country", "category", "direction", "reach", "startYear", "endYear", "sourceName", "sourceUrl", "source2Name", "source2Url", "confirm"];
+    ////////////////////////////////////////////
+
+
+    let startedAt = Date.now();      // sert à l'anti-spam : un humain met plus de 3 secondes
+    let submitted = false;           // les erreurs s'affichent dès le premier essai d'envoi
+    const touched = new Set<string>();
+
+    const el = (name: string) => form.elements.namedItem(name) as HTMLInputElement | RadioNodeList;
+    const value = (name: string) => (el(name) as HTMLInputElement).value;
+
+    function read() {
+        return {
+            title: value("title"), text: value("text"), country: value("country"),
+            category: value("category"), direction: value("direction"), reach: value("reach"),
+            startYear: value("startYear"), endYear: value("endYear"),
+            sourceName: value("sourceName"), sourceUrl: value("sourceUrl"),
+            source2Name: value("source2Name"), source2Url: value("source2Url"),
+            confirm: (document.getElementById("confirm") as HTMLInputElement).checked,
+        };
+    }
+
+    const context = () => ({ categories: formData.categories, existingTitles: formData.titles, now: new Date() });
+    ////////////////////////////////////////////
+
+
+    function setCounter(id: string, length: number, max: number) {
+        const counter = document.getElementById(id);
+        if (counter) counter.textContent = `${length} / ${max}`;
+    }
+
+    function showErrors(errors: Record<string, string>) {
+        FIELDS.forEach((name) => {
+            const message = submitted || touched.has(name) ? errors[name] ?? "" : "";
+            const out = document.getElementById(`${name}-error`);
+            if (out) out.textContent = message;
+            const control = document.getElementById(name);
+            if (control) control.setAttribute("aria-invalid", message ? "true" : "false");
+        });
+    }
+
+    // Aperçu : la même carte que dans le jeu (construite avec textContent, jamais avec du HTML)
+    function renderPreview(input: ReturnType<typeof read>) {
+        const score = REACH.some((r) => r.value === Number(input.reach)) && input.direction
+            ? scoreFrom(input.direction, Number(input.reach))
+            : null;
+        const label = formData.labels[input.category] ?? "Category";
+        const start = clean(input.startYear, 10);
+        const end = clean(input.endYear, 10);
+        const year = start ? (end && end !== start ? `${start}–${end}` : start) : "Year";
+
+        let host = "source.com";
+        try { host = new URL(input.sourceUrl).hostname.replace("www.", ""); } catch { /* lien pas encore complet */ }
+
+        const make = (tag: string, className: string, text = "") => {
+            const node = document.createElement(tag);
+            node.className = className;
+            if (text) node.textContent = text;
+            return node;
+        };
+
+        const article = make("article", "card");
+        article.dataset.sentiment = score !== null && score < 0 ? "negative" : "positive";
+        const inner = make("div", "card_interne");
+        inner.append(make("h2", "card_title", clean(input.title, 200) || "Name of the event"));
+
+        const effect = make("div", "card_effet");
+        const scoreP = make("p", "card_score");
+        scoreP.append(
+            make("span", "", score === null ? "?" : `${score > 0 ? "+" : ""}${score}`),
+            make("span", "", label),
+        );
+        effect.append(scoreP);
+        inner.append(effect);
+
+        inner.append(make("p", "card_text", clean(input.text, 2000) || "Your description appears here."));
+
+        const infos = make("div", "card_infos");
+        const source = make("a", "card_source", host);
+        infos.append(make("p", "card_year", year), source);
+        inner.append(infos);
+
+        article.append(inner);
+        previewEl.replaceChildren(article);
+    }
+
+    function refresh() {
+        const input = read();
+        setCounter("title-count", clean(input.title, 200).length, LIMITS.titleMax);
+        setCounter("text-count", clean(input.text, 2000).length, LIMITS.textMax);
+
+        const reach = Number(input.reach);
+        scoreOut.textContent = input.direction && REACH.some((r) => r.value === reach)
+            ? `${scoreFrom(input.direction, reach) > 0 ? "+" : ""}${scoreFrom(input.direction, reach)}`
+            : "–";
+
+        renderPreview(input);
+        showErrors(validateEvent(input, context()).errors);
+    }
+
+    form.addEventListener("input", (event) => {
+        const name = (event.target as HTMLInputElement).name;
+        if (name) touched.add(name);
+        refresh();
+    });
+    form.addEventListener("change", (event) => {
+        const name = (event.target as HTMLInputElement).name;
+        if (name) touched.add(name);
+        refresh();
+    });
+    form.addEventListener("focusout", (event) => {
+        const name = (event.target as HTMLInputElement).name;
+        if (name) { touched.add(name); refresh(); }
+    });
+    ////////////////////////////////////////////
+
+
+    function setStatus(message: string, isError = false) {
+        statusEl.textContent = message;
+        statusEl.classList.toggle("form_status_error", isError);
+    }
+
+    function focusFirstError(errors: Record<string, string>) {
+        const first = FIELDS.find((name) => errors[name]);
+        if (!first) return;
+        const target = first === "direction" || first === "reach"
+            ? form.querySelector<HTMLElement>(`input[name="${first}"]`)
+            : document.getElementById(first);
+        target?.focus();
+    }
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        submitted = true;
+
+        const input = read();
+        const { ok, errors } = validateEvent(input, context());
+        showErrors(errors);
+
+        if (!ok) {
+            const count = Object.keys(errors).length;
+            setStatus(`Please fix ${count} ${count === 1 ? "field" : "fields"} before sending.`, true);
+            focusFirstError(errors);
+            return;
+        }
+
+        sendBtn.disabled = true;
+        sendBtn.textContent = "Sending…";
+        setStatus("");
+
+        try {
+            const response = await fetch("/api/submit-event", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...input, website: value("website"), startedAt }),
+            });
+            const result = await response.json().catch(() => ({}));
+
+            if (response.ok && result.ok) {
+                form.hidden = true;
+                thanks.hidden = false;
+                document.getElementById("thanks-text")!.textContent = result.dryRun
+                    ? "Test mode: your event was checked, but nothing was sent."
+                    : "Your event was sent for review. If it is accepted, it will appear in the game within a few minutes.";
+                thanks.focus();
+            } else if (response.status === 422 && result.errors) {
+                showErrors(result.errors);
+                setStatus("Some fields need your attention.", true);
+                focusFirstError(result.errors);
+            } else if (response.status === 404) {
+                setStatus("The form is not available in this version of the site.", true);
+            } else {
+                setStatus(result.error ?? "Something went wrong. Please try again.", true);
+            }
+        } catch {
+            setStatus("We could not reach the server. This form needs an internet connection: check it and try again.", true);
+        } finally {
+            sendBtn.disabled = false;
+            sendBtn.textContent = "Send for review";
+        }
+    });
+
+    document.getElementById("another")!.addEventListener("click", () => {
+        form.reset();
+        touched.clear();
+        submitted = false;
+        startedAt = Date.now();
+        thanks.hidden = true;
+        form.hidden = false;
+        setStatus("");
+        refresh();
+        document.getElementById("title")!.focus();
+    });
+
+    refresh();
+</script>

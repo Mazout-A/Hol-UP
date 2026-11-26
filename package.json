@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "astro": "^7.4.13",
-    "lucide": "^1.80.0"
+    "qrcode-generator": "^2.0.4"
   }
 }

@@ -1,22 +1,44 @@
 ---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/fonts.css";
 import "../styles/token.css";
 import "../styles/style.css";
 
-const { title = "English Game" } = Astro.props;
+const {
+    title = "English Game",
+    description = "Companion website of the English Game card game: draw real market events and discover what happened to stocks, real estate and savings.",
+    noindex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <meta name="theme-color" content="#1a2238" />
+        {noindex && <meta name="robots" content="noindex" />}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
     <body>
+        <Header />
         <slot />
+        <Footer />
+
+        <script>
+            // Mode hors ligne : le service worker n'existe qu'après « astro build »
+            if ("serviceWorker" in navigator && import.meta.env.PROD) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("/sw.js").catch(() => {});
+                });
+            }
+        </script>
     </body>
 </html>
