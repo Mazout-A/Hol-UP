@@ -151,7 +151,7 @@ body{
 
 .btn_draw {
   background: var(--color-positive);
-  color: var(--color-background);
+  color: var(--color-text);
   box-shadow: 0 0.3rem 0 color-mix(in srgb, var(--color-positive), black 40%);
 }
 
