@@ -5,9 +5,9 @@
   --color-accent: #d9482b;
 
   /* Couleurs des cartes */
-  --color-card-background: #fbf8f1;
-  --color-card-inner-background: pink;
-  --color-card-text: #1a2238;
+  --color-card-background: #223d1f;
+  --color-card-inner-background: #f3f3da;
+  --color-card-text: #000;
 
   /* Couleurs d'état */
   --color-positive: #2f9e6e;
@@ -17,7 +17,7 @@
   --color-negative-text: #a32a2a;
 
   /* Polices */
-  --font-display: 'Dingdong', 'Switzer', system-ui, sans-serif;
+  --font-display: 'dingdongirregular', 'Switzer', system-ui, sans-serif;
   --font-body: 'Switzer', system-ui, sans-serif;
 
   /* Tailles de texte */
